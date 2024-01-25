@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://blplsxu77noo5"]
+
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenerEditor.gd" id="1_av557"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jk8d"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.501961)
+
+[node name="TweenerEditor" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_0jk8d")
+script = ExtResource("1_av557")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Type" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
