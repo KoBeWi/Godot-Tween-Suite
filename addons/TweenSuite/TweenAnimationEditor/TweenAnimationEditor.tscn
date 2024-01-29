@@ -1,63 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://do14sdvibpe0k"]
+[gd_scene load_steps=2 format=3 uid="uid://gfjvd358j1j5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditor.gd" id="1_r8si7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yftd"]
-bg_color = Color(0, 0, 0, 0.501961)
-
-[node name="Tweens" type="HBoxContainer"]
-offset_right = 321.0
-offset_bottom = 179.0
-script = ExtResource("1_r8si7")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "New"
-
-[node name="Button3" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Load"
-
-[node name="Button4" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Save"
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Play"
-
-[node name="Button5" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Stop"
-
-[node name="MarginContainer" type="ScrollContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_6yftd")
-
-[node name="CanvasContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
+[node name="TweenAnimationEditor" type="VBoxContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_r8si7")
 
-[node name="StepContainer" type="VBoxContainer" parent="MarginContainer/CanvasContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Root"
+
+[node name="StepContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CanvasContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = 50
 
-[node name="AddStep" type="Button" parent="MarginContainer/CanvasContainer/MarginContainer"]
+[node name="AddStep" type="Button" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Add Step"
-
-[connection signal="pressed" from="MarginContainer/CanvasContainer/MarginContainer/AddStep" to="." method="add_animation_step"]

@@ -22,6 +22,9 @@ func _validate_property(property: Dictionary) -> void:
 class TweenerAnimator:
 	func get_name() -> String:
 		return "Tweener"
+	
+	func get_properties() -> Array[Dictionary]:
+		return []
 
 class PropertyTweenerAnimator extends TweenerAnimator:
 	func get_name() -> String:

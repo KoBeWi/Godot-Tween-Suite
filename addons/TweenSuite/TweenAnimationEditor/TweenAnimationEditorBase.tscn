@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://do14sdvibpe0k"]
+
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditorBase.gd" id="1_c8gub"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorButton.gd" id="2_ls5q1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yftd"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[node name="Tweens" type="HBoxContainer"]
+offset_right = 321.0
+offset_bottom = 179.0
+script = ExtResource("1_c8gub")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "New"
+script = ExtResource("2_ls5q1")
+icon_name = &"New"
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Load"
+script = ExtResource("2_ls5q1")
+icon_name = &"Load"
+
+[node name="Button4" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Save"
+script = ExtResource("2_ls5q1")
+icon_name = &"Save"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play"
+script = ExtResource("2_ls5q1")
+icon_name = &"Play"
+
+[node name="Button5" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Stop"
+script = ExtResource("2_ls5q1")
+icon_name = &"Stop"
+
+[node name="AnimationView" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6yftd")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="new_animation"]

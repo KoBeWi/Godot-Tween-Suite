@@ -19,3 +19,40 @@ layout_mode = 2
 [node name="Type" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="PropertyTweener" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+text = "Object"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+text = "Property"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+text = "Final Value"
+
+[node name="LineEdit3" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+text = "Duration"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+max_value = 1e+06
+step = 0.001
+value = 1.0
+suffix = "s"
+custom_arrow_step = 0.1
