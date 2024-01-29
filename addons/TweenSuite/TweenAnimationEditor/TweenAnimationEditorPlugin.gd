@@ -4,7 +4,7 @@ extends EditorPlugin
 var editor: Control
 
 func _enter_tree() -> void:
-	editor = preload("./TweenAnimationEditor.tscn").instantiate()
+	editor = preload("./TweenAnimationEditorBase.tscn").instantiate()
 	add_control_to_bottom_panel(editor, editor.name)
 
 func _exit_tree() -> void:

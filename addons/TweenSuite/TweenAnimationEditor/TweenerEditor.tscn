@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=4 format=3 uid="uid://blplsxu77noo5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenerEditor.gd" id="1_av557"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorButton.gd" id="2_3aaqf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jk8d"]
 content_margin_left = 8.0
@@ -10,49 +11,269 @@ content_margin_bottom = 8.0
 bg_color = Color(0, 0, 0, 0.501961)
 
 [node name="TweenerEditor" type="PanelContainer"]
+offset_right = 262.0
+offset_bottom = 378.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0jk8d")
 script = ExtResource("1_av557")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Type" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="Type" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_3aaqf")
+icon_name = &"Remove"
+
 [node name="PropertyTweener" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 columns = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Object"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+[node name="Object" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Property"
 
-[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+[node name="Property" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label3" type="Label" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Final Value"
 
-[node name="LineEdit3" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+[node name="FinalValue" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label4" type="Label" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Duration"
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/PropertyTweener"]
+[node name="Duration" type="SpinBox" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1e+06
 step = 0.001
 value = 1.0
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="Label8" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ease"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label9" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Transition"
+
+[node name="OptionButton2" type="OptionButton" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label6" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From Current"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label5" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From"
+
+[node name="LineEdit4" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label7" type="Label" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delay"
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/PropertyTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="IntervalTweener" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/IntervalTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time"
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/IntervalTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
+value = 1.0
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="CallbackTweener" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Object"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Method"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="VBoxContainer/CallbackTweener"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Binds"
+
+[node name="Label4" type="Label" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delay"
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/CallbackTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
+value = 1.0
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="MethodTweener" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Object"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Method"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From"
+
+[node name="LineEdit3" type="LineEdit" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To"
+
+[node name="LineEdit4" type="LineEdit" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label5" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Duration"
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
+value = 1.0
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="Label6" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ease"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Transition"
+
+[node name="OptionButton2" type="OptionButton" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+
+[node name="Label8" type="Label" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delay"
+
+[node name="SpinBox3" type="SpinBox" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
 suffix = "s"
 custom_arrow_step = 0.1

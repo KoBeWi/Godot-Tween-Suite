@@ -2,9 +2,19 @@
 extends Node
 class_name TweenNode
 
-enum Stage { INIT, ENTER_TREE, POST_ENTER_TREE, READY, MANUAL }
+const _EARLY_ERROR = "Method called too early, Tween not initialized. Use make_tween() to force early creation."
 
-@export var animation: TweenAnimation
+@export var animation: TweenAnimation:
+	set(anime):
+		if anime == animation:
+			return
+		
+		animation = anime
+		
+		if _tween:
+			_tween.kill()
+			_tween = null
+			make_tween()
 
 @export_group("Initial Settings")
 @export var autostart: bool
@@ -17,52 +27,50 @@ enum Stage { INIT, ENTER_TREE, POST_ENTER_TREE, READY, MANUAL }
 @export_range(0, 9999) var loops: int = 1
 @export_enum("Idle", "Physics") var tween_process_mode: int
 @export_enum("Bound", "Stop", "Process") var pause_mode: int
-@export var initialization_stage: Stage = Stage.READY
 
 var _tween: Tween
+
+static func create_persistent_tween(with_autostart: bool = false) -> Tween:
+	var scene_tree: SceneTree = Engine.get_main_loop()
+	var tween := scene_tree.create_tween()
+	tween.finished.connect(tween.stop)
+	
+	if not with_autostart:
+		tween.stop()
+	
+	return tween
 
 func make_tween():
 	if _tween:
 		return
 	
-	var scene_tree: SceneTree = Engine.get_main_loop()
-	_tween = scene_tree.create_tween().bind_node(self).set_process_mode(tween_process_mode).set_trans(default_transition).set_ease(default_easing).set_pause_mode(pause_mode).set_loops(loops).set_parallel(parallel).set_speed_scale(speed_scale)
-	_tween.finished.connect(_tween.stop)
-
-	if not autostart:
-		_tween.stop()
+	_tween = TweenNode.create_persistent_tween(autostart)
+	_tween.bind_node(self).set_process_mode(tween_process_mode).set_trans(default_transition).set_ease(default_easing).set_pause_mode(pause_mode).set_loops(loops).set_parallel(parallel).set_speed_scale(speed_scale)
 	
 	if animation:
-		animation.apply_to_tween(_tween)
+		animation.apply_to_tween(_tween, self)
 	else:
 		_initialize_animation(_tween)
-
-func _init() -> void:
-	if initialization_stage == Stage.INIT:
-		make_tween()
-
-func _notification(what: int) -> void:
-	if _tween:
-		return
-	
-	if what == NOTIFICATION_ENTER_TREE and initialization_stage == Stage.ENTER_TREE:
-		make_tween()
-	elif what == NOTIFICATION_POST_ENTER_TREE and initialization_stage == Stage.POST_ENTER_TREE:
-		make_tween()
-	elif what == NOTIFICATION_READY and initialization_stage == Stage.READY:
-		make_tween()
 
 func _initialize_animation(tween: Tween):
 	pass
 
 func play():
+	assert(_tween != null, _EARLY_ERROR)
 	_tween.play()
 
 func pause():
+	assert(_tween != null, _EARLY_ERROR)
 	_tween.pause()
 
 func stop():
+	assert(_tween != null, _EARLY_ERROR)
 	_tween.stop()
 
 func get_tween() -> Tween:
+	assert(_tween != null, _EARLY_ERROR)
 	return _tween
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_READY:
+		make_tween.call_deferred()
