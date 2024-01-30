@@ -35,14 +35,18 @@ icon_name = &"Save"
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="Play" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "Play"
 script = ExtResource("2_ls5q1")
 icon_name = &"Play"
 
-[node name="Button5" type="Button" parent="VBoxContainer"]
+[node name="Stop" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "Stop"
 script = ExtResource("2_ls5q1")
 icon_name = &"Stop"
@@ -55,3 +59,5 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6yftd")
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="new_animation"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="load_animation"]
 [connection signal="pressed" from="VBoxContainer/Button4" to="." method="save_animation"]
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="play_animation"]
+[connection signal="pressed" from="VBoxContainer/Stop" to="." method="stop_animation"]

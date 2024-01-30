@@ -1,4 +1,5 @@
 @tool
+@icon("uid://dp7rsgqw46he6")
 extends Resource
 class_name TweenAnimation
 
@@ -18,7 +19,7 @@ func _get_property_list() -> Array[Dictionary]:
 	
 	for i in steps.size():
 		for j in steps[i].size():
-			ret.append({ "name": "step_%d/%d" % [i, j], "type": TYPE_DICTIONARY })
+			ret.append({ "name": "step_%d/%d" % [i, j], "type": TYPE_DICTIONARY, "usage": PROPERTY_USAGE_STORAGE })
 	
 	return ret
 

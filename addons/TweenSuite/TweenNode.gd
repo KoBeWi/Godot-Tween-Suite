@@ -1,4 +1,5 @@
 @tool
+@icon("uid://brtn2nqtj48pj")
 extends Node
 class_name TweenNode
 

@@ -14,6 +14,8 @@ func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
+	root_path.text = animation.root_path
+	
 	for step in animation.steps:
 		var step_control := add_animation_step()
 		
