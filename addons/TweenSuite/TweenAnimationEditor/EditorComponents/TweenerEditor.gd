@@ -58,18 +58,24 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 		tweener.relative = get_data_control("Property", ^"Relative").button_pressed
 		tweener.easing = get_data_control("Property", ^"Ease").get_selected_id()
 		tweener.transition = get_data_control("Property", ^"Transition").get_selected_id()
-		tweener.transition = get_data_control("Property", ^"Transition").get_selected_id()
 		tweener.from_current = get_data_control("Property", ^"FromCurrent").button_pressed
 		tweener.from = get_data_control("Property", ^"From").result
 		tweener.delay = get_data_control("Property", ^"Delay").value
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
-		tweener.time = get_data_control("Interval", ^"Time").text
+		tweener.time = get_data_control("Interval", ^"Time").value
 	elif tweener is TweenAnimation.CallbackTweenerAnimator:
 		tweener.target = get_data_control("Callback", ^"Object").text
 		tweener.method = get_data_control("Callback", ^"Method").text
-		tweener.delay = get_data_control("Callback", ^"Delay").text
+		tweener.delay = get_data_control("Callback", ^"Delay").value
 	elif tweener is TweenAnimation.MethodTweenerAnimator:
-		pass
+		tweener.target = get_data_control("Method", ^"Object").text
+		tweener.method = get_data_control("Method", ^"Method").text
+		tweener.from = get_data_control("Method", ^"From").result
+		tweener.to = get_data_control("Method", ^"To").result
+		tweener.duration = get_data_control("Method", ^"Duration").value
+		tweener.easing = get_data_control("Method", ^"Ease").get_selected_id()
+		tweener.transition = get_data_control("Method", ^"Transition").get_selected_id()
+		tweener.delay = get_data_control("Method", ^"Delay").value
 	
 	return tweener
 

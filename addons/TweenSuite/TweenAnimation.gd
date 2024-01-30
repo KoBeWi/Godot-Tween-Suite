@@ -104,8 +104,14 @@ class TweenerAnimator:
 		var tweener: TweenerAnimator
 		
 		match data["type"]:
-			0:
+			PropertyTweenerAnimator.Type.PROPERTY:
 				tweener = PropertyTweenerAnimator.new()
+			PropertyTweenerAnimator.Type.INTERVAL:
+				tweener = IntervalTweenerAnimator.new()
+			PropertyTweenerAnimator.Type.CALLBACK:
+				tweener = CallbackTweenerAnimator.new()
+			PropertyTweenerAnimator.Type.METHOD:
+				tweener = MethodTweenerAnimator.new()
 		
 		tweener.apply_dictionary(data)
 		return tweener

@@ -15,6 +15,7 @@ bg_color = Color(0, 0, 0, 0.501961)
 custom_minimum_size = Vector2(300, 0)
 offset_right = 262.0
 offset_bottom = 378.0
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0jk8d")
 script = ExtResource("1_vmb5y")
 
@@ -154,6 +155,7 @@ custom_arrow_step = 0.1
 
 [node name="CallbackTweener" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 columns = 2
 
@@ -191,7 +193,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1e+06
 step = 0.001
-value = 1.0
 suffix = "s"
 custom_arrow_step = 0.1
 
@@ -227,6 +228,7 @@ text = "From"
 [node name="From" type="LineEdit" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("3_iulab")
 
 [node name="Label4" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
@@ -236,6 +238,7 @@ text = "To"
 [node name="To" type="LineEdit" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("3_iulab")
 
 [node name="Label5" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2

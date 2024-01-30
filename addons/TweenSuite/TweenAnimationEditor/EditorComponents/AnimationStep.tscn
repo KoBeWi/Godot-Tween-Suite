@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4un04tpw10g5"]
 
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/AnimationStep.gd" id="1_nipv4"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/AnimationStep.gd" id="1_dww5o"]
 
 [node name="AnimationStep" type="VBoxContainer"]
-script = ExtResource("1_nipv4")
+script = ExtResource("1_dww5o")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -15,6 +15,7 @@ layout_mode = 2
 [node name="AddTweener" type="MenuButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 4
 theme_type_variation = &"FlatMenuButton"
 text = "Add Tweener"
 flat = false
@@ -33,6 +34,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 text = "Delete Step"
 
 [node name="HSeparator" type="HSeparator" parent="."]
