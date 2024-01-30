@@ -69,17 +69,36 @@ func get_validated_index(property: String, extend: bool) -> Vector2i:
 	return ret
 
 class TweenerAnimator:
+	enum Type { PROPERTY, INTERVAL, CALLBACK, METHOD }
+	
+	var type: Type
+	
 	func get_name() -> String:
 		return "Tweener"
 	
 	func as_dictionary() -> Dictionary:
-		return {}
+		var ret := {}
+		
+		for property in get_property_list():
+			if property["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE:
+				var propname: String = property["name"]
+				ret[propname] = get(propname)
+		
+		return ret
 	
 	func apply_dictionary(data: Dictionary):
-		pass
+		for property in data:
+			set(property, data[property])
 	
 	func apply_to_tween(tween: Tween, root: Node):
 		pass
+	
+	func get_target_object(root: Node, path: NodePath) -> Object:
+		var object_candidates := root.get_node_and_resource(path)
+		if object_candidates[1]:
+			return object_candidates[1]
+		else:
+			return object_candidates[0]
 	
 	static func create_from_dictionary(data: Dictionary) -> TweenerAnimator:
 		var tweener: TweenerAnimator
@@ -96,41 +115,82 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 	var property: NodePath
 	var final_value: Variant
 	var duration: float
+	var relative: bool
+	var easing: int
+	var transition: int
+	var from_current: bool
+	var from: Variant
+	var delay: float
+	
+	func _init() -> void:
+		type = Type.PROPERTY
 	
 	func get_name() -> String:
 		return "Property Tweener"
 	
-	func as_dictionary() -> Dictionary:
-		return {
-			"type": 0, ##TODO: enum
-			"target": target,
-			"property": property,
-			"final_value": final_value,
-			"duration": duration,
-		}
-	
-	func apply_dictionary(data: Dictionary):
-		target = data["target"]
-		property = data["property"]
-		final_value = data["final_value"]
-		duration = data["duration"]
-	
 	func apply_to_tween(tween: Tween, root: Node):
-		tween.tween_property(root.get_node(target), property, final_value, duration)
+		var object := get_target_object(root, target)
+		
+		var tweener := tween.tween_property(object, property, final_value, duration).set_delay(delay)
+		if relative:
+			tweener.as_relative()
+		
+		if easing > -1:
+			tweener.set_ease(easing)
+		if transition > -1:
+			tweener.set_trans(transition)
+		
+		if from_current:
+			tweener.from_current()
+		elif from != null:
+			tweener.from(from)
 
 class IntervalTweenerAnimator extends TweenerAnimator:
 	var time: float
 	
+	func _init() -> void:
+		type = Type.INTERVAL
+	
 	func get_name() -> String:
 		return "Interval Tweener"
 	
-	func as_dictionary() -> Dictionary:
-		return { "time": time }
+	func apply_to_tween(tween: Tween, root: Node):
+		tween.tween_interval(time)
 
 class CallbackTweenerAnimator extends TweenerAnimator:
+	var target: NodePath
+	var method: StringName
+	var delay: float
+	
+	func _init() -> void:
+		type = Type.CALLBACK
+	
 	func get_name() -> String:
 		return "Callback Tweener"
+	
+	func apply_to_tween(tween: Tween, root: Node):
+		tween.tween_callback(Callable(get_target_object(root, target), method)).set_delay(delay)
 
 class MethodTweenerAnimator extends TweenerAnimator:
+	var target: NodePath
+	var method: StringName
+	var from: Variant
+	var to: Variant
+	var duration: float
+	var easing: int
+	var transition: int
+	var delay: float
+	
+	func _init() -> void:
+		type = Type.METHOD
+	
 	func get_name() -> String:
 		return "Method Tweener"
+	
+	func apply_to_tween(tween: Tween, root: Node):
+		var tweener := tween.tween_method(Callable(get_target_object(root, target), method), from, to, duration).set_delay(delay)
+		
+		if easing > -1:
+			tweener.set_ease(easing)
+		if transition > -1:
+			tweener.set_trans(transition)
