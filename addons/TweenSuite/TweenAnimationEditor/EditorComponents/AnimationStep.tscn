@@ -39,3 +39,5 @@ text = "Delete Step"
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="queue_free"]
