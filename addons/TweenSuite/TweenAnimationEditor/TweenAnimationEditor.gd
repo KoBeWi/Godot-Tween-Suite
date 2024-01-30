@@ -10,10 +10,18 @@ var animation: TweenAnimation
 
 var animation_steps: Array[Control]
 
-func add_animation_step() -> void:
+func _ready() -> void:
+	for step in animation.steps:
+		var step_control := add_animation_step()
+		
+		for tweener in step:
+			add_tweener(step_control, tweener)
+
+func add_animation_step() -> Control:
 	var animation_step: Control = preload("./EditorComponents/AnimationStep.tscn").instantiate()
 	step_container.add_child(animation_step)
 	animation_step.connect_signals(self)
+	return animation_step
 
 func on_new_tweener(id: int, step: Control):
 	var tweener: TweenAnimation.TweenerAnimator
@@ -30,7 +38,11 @@ func on_new_tweener(id: int, step: Control):
 	
 	var tweener_editor: Control = preload("./EditorComponents/TweenerEditor.tscn").instantiate()
 	tweener_editor.set_tweener(tweener)
-	
+	step.add_tweener(tweener_editor)
+
+func add_tweener(step: Control, tweener: TweenAnimation.TweenerAnimator):
+	var tweener_editor: Control = preload("./EditorComponents/TweenerEditor.tscn").instantiate()
+	tweener_editor.set_tweener(tweener)
 	step.add_tweener(tweener_editor)
 
 func push_data():

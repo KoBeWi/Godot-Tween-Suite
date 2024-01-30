@@ -12,6 +12,8 @@ func _ready() -> void:
 	fill_transitions(get_data_control("Method", ^"Transition"))
 	fill_eases(get_data_control("Method", ^"Ease"))
 	
+	apply_tweener()
+	
 func fill_transitions(button: OptionButton):
 	button.add_item("Default")
 	button.set_item_id(-1, -1)
@@ -79,5 +81,41 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 	
 	return tweener
 
+func apply_tweener():
+	if tweener is TweenAnimation.PropertyTweenerAnimator:
+		get_data_control("Property", ^"Object").text = tweener.target
+		get_data_control("Property", ^"Property").text = tweener.property
+		get_data_control("Property", ^"FinalValue").result = tweener.final_value
+		get_data_control("Property", ^"Duration").value = tweener.duration
+		get_data_control("Property", ^"Relative").button_pressed = tweener.relative
+		set_selected_id(get_data_control("Property", ^"Ease"), tweener.easing)
+		set_selected_id(get_data_control("Property", ^"Transition"), tweener.transition)
+		get_data_control("Property", ^"FromCurrent").button_pressed = tweener.from_current
+		get_data_control("Property", ^"From").result = tweener.from
+		get_data_control("Property", ^"Delay").value = tweener.delay
+	elif tweener is TweenAnimation.IntervalTweenerAnimator:
+		get_data_control("Interval", ^"Time").value = tweener.time
+	elif tweener is TweenAnimation.CallbackTweenerAnimator:
+		get_data_control("Callback", ^"Object").text = tweener.target
+		get_data_control("Callback", ^"Method").text = tweener.method
+		get_data_control("Callback", ^"Delay").value = tweener.delay
+	elif tweener is TweenAnimation.MethodTweenerAnimator:
+		get_data_control("Method", ^"Object").text = tweener.target
+		get_data_control("Method", ^"Method").text = tweener.method
+		get_data_control("Method", ^"From").result = tweener.from
+		get_data_control("Method", ^"To").result = tweener.to
+		get_data_control("Method", ^"Duration").value = tweener.duration
+		set_selected_id(get_data_control("Method", ^"Ease"), tweener.easing)
+		set_selected_id(get_data_control("Method", ^"Transition"), tweener.transition)
+		get_data_control("Method", ^"Delay").value = tweener.delay
+
 func get_data_control(tw: String, control: NodePath):
 	return get_node("%%%sTweener" % tw).get_node(control)
+
+func set_selected_id(button: OptionButton, id: int):
+	for i in button.item_count:
+		if button.get_item_id(i) == id:
+			button.select(i)
+			return
+	
+	push_error("Wrong ID %d for button %s" % [id, button])

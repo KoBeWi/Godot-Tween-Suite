@@ -53,4 +53,5 @@ size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_6yftd")
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="new_animation"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="load_animation"]
 [connection signal="pressed" from="VBoxContainer/Button4" to="." method="save_animation"]

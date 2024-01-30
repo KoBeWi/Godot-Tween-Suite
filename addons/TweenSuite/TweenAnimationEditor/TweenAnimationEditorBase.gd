@@ -17,6 +17,10 @@ func create_editor(for_animation: TweenAnimation):
 func new_animation() -> void:
 	create_editor(TweenAnimation.new())
 
+func load_animation() -> void:
+	var animation: TweenAnimation = ResourceLoader.load("TrueTestAnimation.tres", "TweenAnimation")
+	create_editor(animation)
+
 func save_animation() -> void:
 	animation_editor.push_data()
 	var animation: TweenAnimation = animation_editor.animation
