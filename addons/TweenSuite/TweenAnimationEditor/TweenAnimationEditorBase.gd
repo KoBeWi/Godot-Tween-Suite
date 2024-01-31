@@ -27,6 +27,9 @@ func load_animation() -> void:
 	var animation: TweenAnimation = ResourceLoader.load("TrueTestAnimation.tres", "TweenAnimation")
 	create_editor(animation)
 
+func edit(animation: TweenAnimation):
+	create_editor(animation)
+
 func save_animation() -> void:
 	animation_editor.push_data()
 	var animation: TweenAnimation = animation_editor.animation
@@ -58,7 +61,7 @@ func create_revert(from: TweenAnimation, animation_root: Node) -> TweenAnimation
 	
 	for step: Array in from.steps:
 		new_steps.append(step.filter(func(tweener) -> bool:
-			return tweener is TweenAnimation.PropertyTweenerAnimator))
+			return tweener is TweenAnimation.PropertyTweenerAnimator or tweener is TweenAnimation.IntervalTweenerAnimator))
 		
 		for tweener in new_steps.back():
 			if tweener is TweenAnimation.PropertyTweenerAnimator:
