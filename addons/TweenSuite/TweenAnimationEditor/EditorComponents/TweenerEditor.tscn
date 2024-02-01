@@ -1,14 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=6 format=3 uid="uid://blplsxu77noo5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_kbpp4"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jk8d"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0, 0, 0, 0.501961)
 
 [node name="TweenerEditor" type="PanelContainer"]
@@ -22,16 +21,32 @@ script = ExtResource("1_vmb5y")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Type" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="ID" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "#%d"
+horizontal_alignment = 1
+script = ExtResource("2_20eyb")
+
+[node name="Type" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 script = ExtResource("2_kbpp4")
 icon_name = &"Remove"
@@ -283,4 +298,4 @@ step = 0.001
 suffix = "s"
 custom_arrow_step = 0.1
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="queue_free"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="queue_free"]

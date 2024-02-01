@@ -7,30 +7,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_r8si7")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer"]
-layout_mode = 2
-text = "Root"
-
-[node name="RootPath" type="LineEdit" parent="HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="StepContainer" type="VBoxContainer" parent="."]
+[node name="StepContainer" type="HBoxContainer" parent="HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/margin_left = 50
-
-[node name="AddStep" type="Button" parent="MarginContainer"]
+[node name="AddStep" type="Button" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 text = "Add Step"
 
-[connection signal="pressed" from="MarginContainer/AddStep" to="." method="add_animation_step"]
+[connection signal="pressed" from="HBoxContainer2/AddStep" to="." method="add_animation_step"]

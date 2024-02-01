@@ -14,26 +14,25 @@ script = ExtResource("1_c8gub")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "New"
-script = ExtResource("2_ls5q1")
-icon_name = &"New"
+text = "Test Play Root Node"
 
-[node name="Button3" type="Button" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "Load"
-script = ExtResource("2_ls5q1")
-icon_name = &"Load"
 
-[node name="Button4" type="Button" parent="VBoxContainer"]
+[node name="RootIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-text = "Save"
-script = ExtResource("2_ls5q1")
-icon_name = &"Save"
+expand_mode = 1
+stretch_mode = 3
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+[node name="RootPath" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+text = "."
 
 [node name="Play" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -56,8 +55,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_6yftd")
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="new_animation"]
-[connection signal="pressed" from="VBoxContainer/Button3" to="." method="load_animation"]
-[connection signal="pressed" from="VBoxContainer/Button4" to="." method="save_animation"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/RootPath" to="." method="update_root"]
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="play_animation"]
 [connection signal="pressed" from="VBoxContainer/Stop" to="." method="stop_animation"]

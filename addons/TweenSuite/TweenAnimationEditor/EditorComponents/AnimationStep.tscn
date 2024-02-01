@@ -1,18 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4un04tpw10g5"]
+[gd_scene load_steps=4 format=3 uid="uid://b4un04tpw10g5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/AnimationStep.gd" id="1_dww5o"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_44ei7"]
+[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_dqn4s"]
 
-[node name="AnimationStep" type="VBoxContainer"]
+[node name="AnimationStep" type="HBoxContainer"]
 script = ExtResource("1_dww5o")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Tweeners" type="HBoxContainer" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Step"
+horizontal_alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="VBoxContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "#%d"
+horizontal_alignment = 1
+script = ExtResource("2_44ei7")
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("2_dqn4s")
+icon_name = &"Remove"
+
+[node name="Tweeners" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddTweener" type="MenuButton" parent="HBoxContainer"]
+[node name="AddTweener" type="MenuButton" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
@@ -28,15 +66,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Method"
 popup/item_3/id = 3
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="."]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "Delete Step"
-
-[node name="HSeparator" type="HSeparator" parent="."]
-layout_mode = 2
-
-[connection signal="pressed" from="HBoxContainer/Button" to="." method="queue_free"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="queue_free"]

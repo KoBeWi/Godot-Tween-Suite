@@ -11,6 +11,7 @@ func _ready() -> void:
 	fill_eases(get_data_control("Property", ^"Ease"))
 	fill_transitions(get_data_control("Method", ^"Transition"))
 	fill_eases(get_data_control("Method", ^"Ease"))
+	update_id()
 	
 	apply_tweener()
 	
@@ -119,3 +120,6 @@ func set_selected_id(button: OptionButton, id: int):
 			return
 	
 	push_error("Wrong ID %d for button %s" % [id, button])
+
+func update_id():
+	%ID.format(get_index())

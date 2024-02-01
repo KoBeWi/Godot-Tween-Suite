@@ -1,47 +1,50 @@
 @tool
 extends Control
 
+@onready var root_icon: TextureRect = %RootIcon
+@onready var root_path_edit: LineEdit = %RootPath
+
 @onready var animation_view: ScrollContainer = $AnimationView
 @onready var play_button: Button = %Play
 @onready var stop_button: Button = %Stop
 
 var animation_editor: Control
+
+var root_path: NodePath
+var root_valid: bool
 var preview_tween: Tween
 var revert: Dictionary
+
+func _ready() -> void:
+	if EditorInterface.get_edited_scene_root() == self:
+		return
+	
+	update_root()
 
 func create_editor(for_animation: TweenAnimation):
 	if animation_editor:
 		animation_editor.queue_free()
 		animation_editor = null
 	
+	if not for_animation:
+		update_play()
+		return
+	
 	animation_editor = preload("./TweenAnimationEditor.tscn").instantiate()
 	animation_editor.animation = for_animation
 	animation_view.add_child(animation_editor)
 	
-	play_button.disabled = false
-
-func new_animation() -> void:
-	create_editor(TweenAnimation.new())
-
-func load_animation() -> void:
-	var animation: TweenAnimation = ResourceLoader.load("TrueTestAnimation.tres", "TweenAnimation")
-	create_editor(animation)
+	update_play()
 
 func edit(animation: TweenAnimation):
 	create_editor(animation)
-
-func save_animation() -> void:
-	animation_editor.push_data()
-	var animation: TweenAnimation = animation_editor.animation
-	ResourceSaver.save(animation, "TrueTestAnimation.tres")
 
 func play_animation() -> void:
 	animation_editor.push_data()
 	var animation: TweenAnimation = animation_editor.animation
 	
-	var root := EditorInterface.get_edited_scene_root()
-	var animation_root := root.get_node(animation.root_path)
-	animation = create_revert(animation, animation_root)
+	var root := get_root_node()
+	animation = create_revert(animation, root)
 	
 	preview_tween = create_tween()
 	animation.apply_to_tween(preview_tween, root)
@@ -56,7 +59,6 @@ func stop_animation() -> void:
 
 func create_revert(from: TweenAnimation, animation_root: Node) -> TweenAnimation:
 	var new_anim := TweenAnimation.new()
-	new_anim.root_path = from.root_path
 	var new_steps := []
 	
 	for step: Array in from.steps:
@@ -79,3 +81,32 @@ func apply_revert():
 	
 	revert.clear()
 	stop_button.disabled = true
+
+func update_root(new_text: String = "") -> void:
+	if new_text.is_empty():
+		new_text = root_path_edit.text
+	
+	root_path = new_text
+	
+	var root := get_root_node()
+	root_valid = root != null
+	
+	if root_valid:
+		root_path_edit.modulate = Color.WHITE
+		root_icon.texture = EditorInterface.get_editor_theme().get_icon(root.get_class(), &"EditorIcons")
+		root_icon.tooltip_text = root.name
+	else:
+		root_path_edit.modulate = Color.RED
+		root_icon.texture = null
+		root_icon.tooltip_text = ""
+	
+	update_play()
+
+func update_play():
+	play_button.disabled = not root_valid and animation_editor != null and animation_editor.root_valid
+
+func get_root_node() -> Node:
+	var root := EditorInterface.get_edited_scene_root()
+	if root:
+		return root.get_node_or_null(root_path)
+	return null

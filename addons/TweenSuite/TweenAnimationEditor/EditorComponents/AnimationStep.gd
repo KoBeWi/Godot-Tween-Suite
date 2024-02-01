@@ -1,17 +1,29 @@
 @tool
-extends VBoxContainer
+extends Control
 
-@onready var tweeners: HBoxContainer = %Tweeners
+@onready var tweeners: BoxContainer = %Tweeners
+@onready var add_tweener_button: MenuButton = %AddTweener
 
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
+	update_header()
+	
 	for style: StringName in [&"normal", &"pressed", &"hover", &"disabled", &"focus"]:
-		%AddTweener.add_theme_stylebox_override(style, get_theme_stylebox(style, &"OptionButton"))
+		add_tweener_button.add_theme_stylebox_override(style, get_theme_stylebox(style, &"OptionButton"))
 
 func connect_signals(editor: Control):
-	%AddTweener.get_popup().id_pressed.connect(editor.on_new_tweener.bind(self))
+	add_tweener_button.get_popup().id_pressed.connect(editor.on_new_tweener.bind(self))
+	tree_exited.connect(editor.update_step_headers)
 
 func add_tweener(tweener: Control):
 	tweeners.add_child(tweener)
+	tweener.tree_exited.connect(update_tweener_headers)
+
+func update_header():
+	%HeaderLabel.format(get_index())
+
+func update_tweener_headers():
+	for tweener in tweeners.get_children():
+		tweener.update_id()

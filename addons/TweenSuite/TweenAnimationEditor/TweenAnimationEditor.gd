@@ -3,18 +3,15 @@ extends Control
 
 enum NewOption { PROPERTY, INTERVAL, CALLBACK, METHOD }
 
-@onready var root_path: LineEdit = %RootPath
-@onready var step_container: VBoxContainer = %StepContainer
+@onready var step_container: BoxContainer = %StepContainer
+
+var root_valid: bool
 
 var animation: TweenAnimation
-
-var animation_steps: Array[Control]
 
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
-	
-	root_path.text = animation.root_path
 	
 	for step in animation.steps:
 		var step_control := add_animation_step()
@@ -27,6 +24,10 @@ func add_animation_step() -> Control:
 	step_container.add_child(animation_step)
 	animation_step.connect_signals(self)
 	return animation_step
+
+func update_step_headers():
+	for step in step_container.get_children():
+		step.update_header()
 
 func on_new_tweener(id: int, step: Control):
 	var tweener: TweenAnimation.TweenerAnimator
@@ -49,7 +50,6 @@ func add_tweener(step: Control, tweener: TweenAnimation.TweenerAnimator):
 	step.add_tweener(tweener_editor)
 
 func push_data():
-	animation.root_path = root_path.text
 	var steps: Array
 	
 	for step in step_container.get_children():

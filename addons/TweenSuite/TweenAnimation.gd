@@ -3,13 +3,9 @@
 extends Resource
 class_name TweenAnimation
 
-@export var root_path: NodePath
-
 var steps: Array
 
 func apply_to_tween(tween: Tween, root: Node):
-	root = root.get_node(root_path)
-	
 	for step: Array in steps:
 		for tweener: TweenerAnimator in step:
 			tweener.apply_to_tween(tween, root)
