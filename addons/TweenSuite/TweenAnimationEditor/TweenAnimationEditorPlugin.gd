@@ -15,6 +15,9 @@ func _exit_tree() -> void:
 	editor.queue_free()
 
 func _handles(object: Object) -> bool:
+	if object is TweenNode:
+		editor.set_node(object)
+	
 	return object is TweenAnimation
 
 func _edit(object: Object) -> void:

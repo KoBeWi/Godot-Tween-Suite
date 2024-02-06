@@ -39,6 +39,12 @@ func create_editor(for_animation: TweenAnimation):
 func edit(animation: TweenAnimation):
 	create_editor(animation)
 
+func set_node(node: TweenNode):
+	var root := node.get_node_or_null(node.animation_root)
+	if root:
+		root_path_edit.text = EditorInterface.get_edited_scene_root().get_path_to(root)
+		update_root()
+
 func play_animation() -> void:
 	animation_editor.push_data()
 	var animation: TweenAnimation = animation_editor.animation
