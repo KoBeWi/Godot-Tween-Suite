@@ -13,8 +13,6 @@ func _ready() -> void:
 	fill_eases(get_data_control("Method", ^"Ease"))
 	update_id()
 	
-	apply_tweener()
-	
 func fill_transitions(button: OptionButton):
 	button.add_item("Default")
 	button.set_item_id(-1, -1)

@@ -72,7 +72,7 @@ func make_tween():
 	if _tween:
 		return
 	
-	_tween = TweenNode.create_persistent_tween(autostart and not Engine.is_editor_hint())
+	_tween = TweenNode.create_persistent_tween(autostart)
 	_tween.bind_node(self).set_process_mode(tween_process_mode).set_trans(default_transition).set_ease(default_easing).set_pause_mode(pause_mode).set_loops(loops).set_parallel(parallel).set_speed_scale(speed_scale)
 	
 	if animation:
@@ -112,7 +112,8 @@ func get_tween() -> Tween:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
-		make_tween.call_deferred()
+		if not Engine.is_editor_hint():
+			make_tween.call_deferred()
 
 func _validate_property(property: Dictionary) -> void:
 	if property.name == "animation_root":
