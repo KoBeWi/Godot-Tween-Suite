@@ -1,3 +1,6 @@
+## The resource that defines [Tween] animations.
+##
+## [TweenAnimation] can be used to animate [Tween] node without using code. You can edit the animation in the [code]Tweens[/code] bottom tab when the resource is selected. Once created, the animation can be applied to a tween to create all [Tweener]s as defined in the animation. You can either use it with a [TweenNode] or a regular tween by calling [method apply_to_tween].
 @tool
 @icon("uid://dp7rsgqw46he6")
 extends Resource
@@ -5,6 +8,12 @@ class_name TweenAnimation
 
 var steps: Array
 
+## Applies this animation to the given [Tween]. The [param root] is the base node for animation paths. Called automatically when using [TweenNode].
+## [codeblock]
+## var tween = create_tween()
+## var animation = load("res://tween_animation.tres")
+## animation.apply_to_tween(tween)
+## [/codeblock]
 func apply_to_tween(tween: Tween, root: Node):
 	for step: Array in steps:
 		for tweener: TweenerAnimator in step:
@@ -20,21 +29,21 @@ func _get_property_list() -> Array[Dictionary]:
 	return ret
 
 func _get(property: StringName) -> Variant:
-	var idx := get_validated_index(property, false)
+	var idx := _get_validated_index(property, false)
 	if idx.x == -1:
 		return null
 	
 	return steps[idx.x][idx.y].as_dictionary()
 
 func _set(property: StringName, value: Variant) -> bool:
-	var idx := get_validated_index(property, true)
+	var idx := _get_validated_index(property, true)
 	if idx.x == -1 or not value is Dictionary:
 		return false
 	
 	steps[idx.x][idx.y] = TweenerAnimator.create_from_dictionary(value)
 	return true
 
-func get_validated_index(property: String, extend: bool) -> Vector2i:
+func _get_validated_index(property: String, extend: bool) -> Vector2i:
 	var ret := Vector2i(-1, -1)
 	if not property.begins_with("step_"):
 		return ret
