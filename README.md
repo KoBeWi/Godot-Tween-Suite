@@ -32,22 +32,22 @@ This function is automatically called once, after the node is ready. The animati
 
 By assigning a TweenAnimation, the TweenNode will use it for the animation and won't call `initialize_animation()`. Similar to AnimationPlayer, you need to setup `animation_root` property to define the base node for your animation. See [TweenAnimation](#tweenanimation) for more info.
 
-#### Creating persistent Tweens
+#### Creating reusable Tweens
 
-By default, a regular Tween will autostart and become invalid once animation is finished. There is a way to create a Tween that does not autostart and stays valid and TweenNode makes that easier. Use the `create_persistent_tween()` static method to create a persistent Tween. The optional `autostart` argument specifies whether the Tween start automatically or not.
+By default, a regular Tween will autostart and become invalid once animation is finished. There is a way to create a Tween that does not autostart and stays valid and TweenNode makes that easier. Use the `create_reusable_tween()` static method to create a reusable Tween. The optional `autostart` argument specifies whether the Tween start automatically or not.
 
 ```GDScript
 var tween: Tween
 
 func _ready():
-    tween = TweenNode.create_persistent_tween()
+    tween = TweenNode.create_reusable_tween()
     tween.tween_property(self, "position:y", -100, 0.5).as_relative()
 
 func jump():
     tween.play()
 ```
 
-It's useful if you want persistent Tweens without using the node itself.
+It's useful if you want reusable Tweens without using the node itself.
 
 ## ![](addons/TweenSuite//Icons/TweenAnimation.svg) TweenAnimation
 

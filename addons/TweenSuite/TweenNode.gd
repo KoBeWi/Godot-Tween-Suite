@@ -57,7 +57,7 @@ const _EARLY_ERROR = "Method called too early, Tween not initialized. Use make_t
 var _tween: Tween
 
 ## Creates a reusable [Tween]. It will not go invalid once finished, which means you should call [method kill] to dispose it manually when it's no longer needed (this is done automatically when the tween is bound to a [Node]). If [param with_autostart] is [code]false[/code], the [Tween] will not be animating until you call [method Tween.play].
-static func create_persistent_tween(with_autostart: bool = false) -> Tween:
+static func create_reusable_tween(with_autostart: bool = false) -> Tween:
 	var scene_tree: SceneTree = Engine.get_main_loop()
 	var tween := scene_tree.create_tween()
 	tween.finished.connect(tween.stop)
@@ -72,7 +72,7 @@ func make_tween():
 	if _tween:
 		return
 	
-	_tween = TweenNode.create_persistent_tween(autostart)
+	_tween = TweenNode.create_reusable_tween(autostart)
 	_tween.bind_node(self).set_process_mode(tween_process_mode).set_trans(default_transition).set_ease(default_easing).set_pause_mode(pause_mode).set_loops(loops).set_parallel(parallel).set_speed_scale(speed_scale)
 	
 	if animation:
