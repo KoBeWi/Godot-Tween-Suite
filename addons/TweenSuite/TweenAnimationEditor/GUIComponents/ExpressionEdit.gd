@@ -6,13 +6,15 @@ var sync: bool
 var result: Variant:
 	set(r):
 		result = r
-		if not sync:
-			if result == null:
+		
+		if result == null:
+			if not sync:
 				text = ""
-				tooltip_text = "null"
-			else:
+			tooltip_text = "null"
+		else:
+			if not sync:
 				text = var_to_str(result)
-				tooltip_text = str(result)
+			tooltip_text = str(result)
 
 func _ready() -> void:
 	text_changed.connect(evaluate.unbind(1)) ## TODO: debouncing
