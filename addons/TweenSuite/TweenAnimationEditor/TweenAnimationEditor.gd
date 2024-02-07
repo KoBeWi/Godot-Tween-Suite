@@ -4,25 +4,34 @@ extends Control
 enum NewOption { PROPERTY, INTERVAL, CALLBACK, METHOD }
 
 @onready var step_container: BoxContainer = %StepContainer
+@onready var timer: Timer = $Timer
 
 var root_valid: bool
+var loading: bool
 
 var animation: TweenAnimation
+
+signal expanded
 
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
+	loading = true
 	for step in animation.steps:
 		var step_control := add_animation_step()
 		
 		for tweener in step:
 			add_tweener(step_control, tweener).apply_tweener()
+	loading = false
 
 func add_animation_step() -> Control:
 	var animation_step: Control = preload("./EditorComponents/AnimationStep.tscn").instantiate()
 	step_container.add_child(animation_step)
 	animation_step.connect_signals(self)
+	push_data_delayed()
+	if not loading:
+		expanded.emit()
 	return animation_step
 
 func update_step_headers():
@@ -43,14 +52,25 @@ func on_new_tweener(id: int, step: Control):
 			tweener = TweenAnimation.MethodTweenerAnimator.new()
 	
 	add_tweener(step, tweener)
+	push_data_delayed()
+	
+	if step == step_container.get_child(-1):
+		expanded.emit()
 
 func add_tweener(step: Control, tweener: TweenAnimation.TweenerAnimator) -> Control:
 	var tweener_editor: Control = preload("./EditorComponents/TweenerEditor.tscn").instantiate()
 	tweener_editor.set_tweener(tweener)
 	step.add_tweener(tweener_editor)
+	tweener_editor.changed.connect(push_data_delayed)
 	return tweener_editor
 
+func push_data_delayed():
+	timer.start()
+
 func push_data():
+	if loading:
+		return
+	
 	var steps: Array
 	
 	for step in step_container.get_children():

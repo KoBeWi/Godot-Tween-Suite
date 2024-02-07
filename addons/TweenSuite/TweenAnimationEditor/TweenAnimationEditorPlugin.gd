@@ -29,3 +29,6 @@ func _make_visible(visible: bool) -> void:
 		make_bottom_panel_item_visible(editor)
 	elif editor.is_visible_in_tree():
 		hide_bottom_panel()
+
+func _save_external_data() -> void:
+	editor.save_data()

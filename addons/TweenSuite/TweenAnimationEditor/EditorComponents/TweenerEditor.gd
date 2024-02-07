@@ -3,6 +3,8 @@ extends Control
 
 var tweener: TweenAnimation.TweenerAnimator
 
+signal changed
+
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
@@ -121,3 +123,10 @@ func set_selected_id(button: OptionButton, id: int):
 
 func update_id():
 	%ID.format(get_index())
+
+func delete_me() -> void:
+	queue_free()
+	emit_changed()
+
+func emit_changed():
+	changed.emit()

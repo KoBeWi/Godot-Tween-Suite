@@ -298,4 +298,4 @@ step = 0.001
 suffix = "s"
 custom_arrow_step = 0.1
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="queue_free"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]

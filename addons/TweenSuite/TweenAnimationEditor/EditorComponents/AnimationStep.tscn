@@ -69,4 +69,4 @@ popup/item_3/id = 3
 [node name="VSeparator" type="VSeparator" parent="."]
 layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="queue_free"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]

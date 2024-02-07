@@ -33,6 +33,7 @@ func create_editor(for_animation: TweenAnimation):
 	animation_editor = preload("./TweenAnimationEditor.tscn").instantiate()
 	animation_editor.animation = for_animation
 	animation_view.add_child(animation_editor)
+	animation_editor.expanded.connect(scroll_to_infinity, CONNECT_DEFERRED)
 	
 	update_play()
 
@@ -116,3 +117,11 @@ func get_root_node() -> Node:
 	if root:
 		return root.get_node_or_null(root_path)
 	return null
+
+func save_data():
+	if animation_editor:
+		animation_editor.push_data()
+
+func scroll_to_infinity():
+	await get_tree().process_frame
+	animation_view.scroll_horizontal = 99999999
