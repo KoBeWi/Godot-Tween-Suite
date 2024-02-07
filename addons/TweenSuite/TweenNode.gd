@@ -85,7 +85,7 @@ func make_tween():
 ## [codeblock]
 ## func initialize_animation(tween: Tween):
 ##     tween.tween_property($Sprite2D, "modulate:a", 0.0, 0.5)
-##     tween.tween_property(queue_free)
+##     tween.tween_callback(queue_free)
 ## [/codeblock]
 func initialize_animation(tween: Tween):
 	pass

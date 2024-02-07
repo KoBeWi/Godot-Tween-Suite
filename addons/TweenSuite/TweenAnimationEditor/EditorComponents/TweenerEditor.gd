@@ -130,3 +130,6 @@ func delete_me() -> void:
 
 func emit_changed():
 	changed.emit()
+
+func from_current_toggled(toggled_on: bool) -> void:
+	get_data_control("Property", ^"From").editable = not toggled_on

@@ -299,3 +299,4 @@ suffix = "s"
 custom_arrow_step = 0.1
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]
+[connection signal="toggled" from="VBoxContainer/PropertyTweener/FromCurrent" to="." method="from_current_toggled"]

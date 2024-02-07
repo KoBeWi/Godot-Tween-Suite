@@ -23,6 +23,7 @@ func _ready() -> void:
 
 func create_editor(for_animation: TweenAnimation):
 	if animation_editor:
+		stop_animation()
 		animation_editor.queue_free()
 		animation_editor = null
 	
@@ -57,9 +58,16 @@ func play_animation() -> void:
 	animation.apply_to_tween(preview_tween, root)
 	preview_tween.finished.connect(apply_revert)
 	
-	stop_button.disabled = false
+	# FIXME: There is currently no other way to check if Tween didn't fail.
+	await get_tree().create_timer(0.1).timeout
+	
+	if not is_zero_approx(preview_tween.get_total_elapsed_time()):
+		stop_button.disabled = false
 
 func stop_animation() -> void:
+	if not preview_tween:
+		return
+	
 	preview_tween.kill()
 	preview_tween = null
 	apply_revert()
@@ -110,7 +118,7 @@ func update_root(new_text: String = "") -> void:
 	update_play()
 
 func update_play():
-	play_button.disabled = not root_valid and animation_editor != null and animation_editor.root_valid
+	play_button.disabled = not root_valid or not animation_editor
 
 func get_root_node() -> Node:
 	var root := EditorInterface.get_edited_scene_root()

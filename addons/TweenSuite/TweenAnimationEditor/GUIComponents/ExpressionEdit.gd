@@ -7,12 +7,22 @@ var result: Variant:
 	set(r):
 		result = r
 		if not sync:
-			text = var_to_str(result)
+			if result == null:
+				text = ""
+				tooltip_text = "null"
+			else:
+				text = var_to_str(result)
+				tooltip_text = str(result)
 
 func _ready() -> void:
 	text_changed.connect(evaluate.unbind(1)) ## TODO: debouncing
 
 func evaluate():
+	if text.is_empty():
+		result = null
+		modulate = Color.WHITE
+		return
+	
 	var expression := Expression.new()
 	if expression.parse(text) != OK:
 		modulate = Color.RED
@@ -28,4 +38,3 @@ func evaluate():
 	sync = true
 	result = value
 	sync = false
-	tooltip_text = str(result)

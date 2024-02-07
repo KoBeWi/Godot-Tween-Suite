@@ -12,7 +12,7 @@ var steps: Array
 ## [codeblock]
 ## var tween = create_tween()
 ## var animation = load("res://tween_animation.tres")
-## animation.apply_to_tween(tween)
+## animation.apply_to_tween(tween, self)
 ## [/codeblock]
 func apply_to_tween(tween: Tween, root: Node):
 	for step: Array in steps:

@@ -6,7 +6,6 @@ enum NewOption { PROPERTY, INTERVAL, CALLBACK, METHOD }
 @onready var step_container: BoxContainer = %StepContainer
 @onready var timer: Timer = $Timer
 
-var root_valid: bool
 var loading: bool
 
 var animation: TweenAnimation
