@@ -133,3 +133,8 @@ func emit_changed():
 
 func from_current_toggled(toggled_on: bool) -> void:
 	get_data_control("Property", ^"From").editable = not toggled_on
+
+func set_root(root: Node):
+	get_data_control("Property", ^"Object").base_node = root
+	get_data_control("Callback", ^"Object").base_node = root
+	get_data_control("Method", ^"Object").base_node = root

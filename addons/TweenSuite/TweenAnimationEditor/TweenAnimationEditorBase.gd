@@ -1,10 +1,8 @@
 @tool
 extends Control
 
-@onready var root_icon: TextureRect = %RootIcon
-@onready var root_path_edit: LineEdit = %RootPath
-
 @onready var animation_view: ScrollContainer = $AnimationView
+@onready var root_path_edit: HBoxContainer = %RootPathEdit
 @onready var play_button: Button = %Play
 @onready var stop_button: Button = %Stop
 
@@ -19,7 +17,7 @@ func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
-	update_root()
+	update_root(".")
 
 func create_editor(for_animation: TweenAnimation):
 	if animation_editor:
@@ -36,7 +34,7 @@ func create_editor(for_animation: TweenAnimation):
 	animation_view.add_child(animation_editor)
 	animation_editor.expanded.connect(scroll_to_infinity, CONNECT_DEFERRED)
 	
-	update_play()
+	update_root()
 
 func edit(animation: TweenAnimation):
 	create_editor(animation)
@@ -51,7 +49,7 @@ func play_animation() -> void:
 	animation_editor.push_data()
 	var animation: TweenAnimation = animation_editor.animation
 	
-	var root := get_root_node()
+	var root: Node = root_path_edit.object
 	animation = create_revert(animation, root)
 	
 	preview_tween = create_tween()
@@ -98,33 +96,25 @@ func apply_revert():
 	stop_button.disabled = true
 
 func update_root(new_text: String = "") -> void:
+	root_path_edit.base_node = EditorInterface.get_edited_scene_root()
+	
 	if new_text.is_empty():
 		new_text = root_path_edit.text
 	
 	root_path = new_text
+	root_path_edit.text = new_text
+	root_valid = root_path_edit.object != null and root_path_edit.object is Node
 	
-	var root := get_root_node()
-	root_valid = root != null
-	
-	if root_valid:
-		root_path_edit.modulate = Color.WHITE
-		root_icon.texture = EditorInterface.get_editor_theme().get_icon(root.get_class(), &"EditorIcons")
-		root_icon.tooltip_text = root.name
-	else:
-		root_path_edit.modulate = Color.RED
-		root_icon.texture = null
-		root_icon.tooltip_text = ""
+	if animation_editor:
+		if root_valid:
+			animation_editor.set_root(root_path_edit.object)
+		else:
+			animation_editor.set_root(null)
 	
 	update_play()
 
 func update_play():
 	play_button.disabled = not root_valid or not animation_editor
-
-func get_root_node() -> Node:
-	var root := EditorInterface.get_edited_scene_root()
-	if root:
-		return root.get_node_or_null(root_path)
-	return null
 
 func save_data():
 	if animation_editor:

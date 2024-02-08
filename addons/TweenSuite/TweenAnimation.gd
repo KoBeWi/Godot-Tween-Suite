@@ -99,7 +99,7 @@ class TweenerAnimator:
 	func apply_to_tween(tween: Tween, root: Node):
 		pass
 	
-	func get_target_object(root: Node, path: NodePath) -> Object:
+	static func get_target_object(root: Node, path: NodePath) -> Object:
 		var object_candidates := root.get_node_and_resource(path)
 		if object_candidates[1]:
 			return object_candidates[1]
@@ -141,7 +141,7 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 		return "Property Tweener"
 	
 	func apply_to_tween(tween: Tween, root: Node):
-		var object := get_target_object(root, target)
+		var object := TweenerAnimator.get_target_object(root, target)
 		
 		var tweener := tween.tween_property(object, property, final_value, duration).set_delay(delay)
 		if relative:
@@ -181,7 +181,7 @@ class CallbackTweenerAnimator extends TweenerAnimator:
 		return "Callback Tweener"
 	
 	func apply_to_tween(tween: Tween, root: Node):
-		tween.tween_callback(Callable(get_target_object(root, target), method)).set_delay(delay)
+		tween.tween_callback(Callable(TweenerAnimator.get_target_object(root, target), method)).set_delay(delay)
 
 class MethodTweenerAnimator extends TweenerAnimator:
 	var target: NodePath
@@ -200,7 +200,7 @@ class MethodTweenerAnimator extends TweenerAnimator:
 		return "Method Tweener"
 	
 	func apply_to_tween(tween: Tween, root: Node):
-		var tweener := tween.tween_method(Callable(get_target_object(root, target), method), from, to, duration).set_delay(delay)
+		var tweener := tween.tween_method(Callable(TweenerAnimator.get_target_object(root, target), method), from, to, duration).set_delay(delay)
 		
 		if easing > -1:
 			tweener.set_ease(easing)

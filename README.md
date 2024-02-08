@@ -77,7 +77,7 @@ TweenAnimation is edited like most Godot resources. Double click a file in FileS
 
 ### Playback controls
 
-To the left are some controls for testing the animation. The root node is the base node for the animation, as already mentioned above. While it's a plain text box, it will display icon of the target node if it's valid and its name in the tooltip.
+To the left are some controls for testing the animation. The root node is the base node for the animation, as already mentioned above. While it's a plain text box, it will display icon of the target node if it's valid and its name in the tooltip. You can also assign a Node from the scene using drag and drop.
 
 ![](Media/RootName.png)
 
@@ -122,6 +122,12 @@ In general, this just means that you need to write your value by hand. There is 
 #### Object fields
 
 Fields labeled as Object take NodePath and can be either path to a node (e.g. `Sprite2D`) or path to a sub-resource (e.g. `Sprite2D:material`). The path is relative to the root node specified when the animation is applied to the Tween (the same one as the root of TweenNode).
+
+Like with Test Play Root Node, the Object properties will display icon of the object they point to or turn red if the object can't be determined. Note that wrong path does not mean the animation is invalid, it just means that the editor can't resolve it currently and the animation will not play correctly.
+
+The field will display icons both for nodes and objects and also allows dropping a node to assign it.
+
+![](Media/TwoObjects.png)
 
 #### PropertyTweener
 

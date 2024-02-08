@@ -7,6 +7,7 @@ enum NewOption { PROPERTY, INTERVAL, CALLBACK, METHOD }
 @onready var timer: Timer = $Timer
 
 var loading: bool
+var root: Node
 
 var animation: TweenAnimation
 
@@ -58,6 +59,7 @@ func on_new_tweener(id: int, step: Control):
 
 func add_tweener(step: Control, tweener: TweenAnimation.TweenerAnimator) -> Control:
 	var tweener_editor: Control = preload("./EditorComponents/TweenerEditor.tscn").instantiate()
+	tweener_editor.set_root(get_parent().owner.root_path_edit.object)
 	tweener_editor.set_tweener(tweener)
 	step.add_tweener(tweener_editor)
 	tweener_editor.changed.connect(push_data_delayed)
@@ -83,3 +85,10 @@ func push_data():
 		steps.append(step_data)
 	
 	animation.steps = steps
+
+func set_root(r: Node):
+	root = r
+	
+	for step in step_container.get_children():
+		for tweener in step.tweeners.get_children():
+			tweener.set_root(root)
