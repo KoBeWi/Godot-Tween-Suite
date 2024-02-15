@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=6 format=3 uid="uid://blplsxu77noo5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
@@ -6,17 +6,11 @@
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="4_ccge7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jk8d"]
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.501961)
-
 [node name="TweenerEditor" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
 offset_right = 262.0
 offset_bottom = 378.0
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0jk8d")
 script = ExtResource("1_vmb5y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
