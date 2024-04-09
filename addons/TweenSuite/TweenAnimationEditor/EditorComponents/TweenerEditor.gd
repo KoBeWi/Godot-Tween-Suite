@@ -8,7 +8,7 @@ signal changed
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
-	
+
 	add_theme_stylebox_override(&"panel", get_theme_stylebox(&"CanvasItemInfoOverlay", &"EditorStyles"))
 	
 	fill_transitions(get_data_control("Property", ^"Transition"))
@@ -16,7 +16,7 @@ func _ready() -> void:
 	fill_transitions(get_data_control("Method", ^"Transition"))
 	fill_eases(get_data_control("Method", ^"Ease"))
 	update_id()
-	
+
 func fill_transitions(button: OptionButton):
 	button.add_item("Default")
 	button.set_item_id(-1, -1)
@@ -44,7 +44,7 @@ func fill_eases(button: OptionButton):
 func set_tweener(tw: TweenAnimation.TweenerAnimator):
 	tweener = tw
 	%Type.text = tweener.get_name()
-	
+
 	if tweener is TweenAnimation.PropertyTweenerAnimator:
 		%PropertyTweener.show()
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
@@ -68,6 +68,7 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 		tweener.delay = get_data_control("Property", ^"Delay").value
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
 		tweener.time = get_data_control("Interval", ^"Time").value
+		tweener.randomize_time = get_data_control("Interval", ^"Randomize").button_pressed
 	elif tweener is TweenAnimation.CallbackTweenerAnimator:
 		tweener.target = get_data_control("Callback", ^"Object").text
 		tweener.method = get_data_control("Callback", ^"Method").text
@@ -81,7 +82,7 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 		tweener.easing = get_data_control("Method", ^"Ease").get_selected_id()
 		tweener.transition = get_data_control("Method", ^"Transition").get_selected_id()
 		tweener.delay = get_data_control("Method", ^"Delay").value
-	
+
 	return tweener
 
 func apply_tweener():
@@ -98,6 +99,7 @@ func apply_tweener():
 		get_data_control("Property", ^"Delay").value = tweener.delay
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
 		get_data_control("Interval", ^"Time").value = tweener.time
+		get_data_control("Interval", ^"Randomize").button_pressed = tweener.randomize_time
 	elif tweener is TweenAnimation.CallbackTweenerAnimator:
 		get_data_control("Callback", ^"Object").text = tweener.target
 		get_data_control("Callback", ^"Method").text = tweener.method
@@ -120,7 +122,7 @@ func set_selected_id(button: OptionButton, id: int):
 		if button.get_item_id(i) == id:
 			button.select(i)
 			return
-	
+
 	push_error("Wrong ID %d for button %s" % [id, button])
 
 func update_id():
