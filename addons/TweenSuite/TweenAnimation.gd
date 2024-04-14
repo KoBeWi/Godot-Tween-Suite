@@ -16,7 +16,14 @@ var steps: Array
 ## [/codeblock]
 func apply_to_tween(tween: Tween, root: Node):
 	for step: Array in steps:
+		var first := true
+		
 		for tweener: TweenerAnimator in step:
+			if first:
+				first = false
+			else:
+				tween.parallel()
+			
 			tweener.apply_to_tween(tween, root)
 
 func _get_property_list() -> Array[Dictionary]:
