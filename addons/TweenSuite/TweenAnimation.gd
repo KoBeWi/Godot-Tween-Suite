@@ -128,6 +128,15 @@ class TweenerAnimator:
 		
 		tweener.apply_dictionary(data)
 		return tweener
+	
+	static func evaluate(data: Variant, object: Object) -> Variant:
+		if data is String:
+			if data.begins_with("@"):
+				return object.get(data.substr(1))
+			elif data.begins_with("$"):
+				return object.get_meta(data.substr(1))
+		
+		return data
 
 class PropertyTweenerAnimator extends TweenerAnimator:
 	var target: NodePath
@@ -150,7 +159,8 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 	func apply_to_tween(tween: Tween, root: Node):
 		var object := TweenerAnimator.get_target_object(root, target)
 		
-		var tweener := tween.tween_property(object, property, final_value, duration).set_delay(delay)
+		var final_final_value: Variant = TweenerAnimator.evaluate(final_value, object)
+		var tweener := tween.tween_property(object, property, final_final_value, duration).set_delay(delay)
 		if relative:
 			tweener.as_relative()
 		
@@ -162,7 +172,8 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 		if from_current:
 			tweener.from_current()
 		elif from != null:
-			tweener.from(from)
+			var final_from: Variant = TweenerAnimator.evaluate(from, object)
+			tweener.from(final_from)
 
 class IntervalTweenerAnimator extends TweenerAnimator:
 	var time: float
@@ -207,7 +218,10 @@ class MethodTweenerAnimator extends TweenerAnimator:
 		return "Method Tweener"
 	
 	func apply_to_tween(tween: Tween, root: Node):
-		var tweener := tween.tween_method(Callable(TweenerAnimator.get_target_object(root, target), method), from, to, duration).set_delay(delay)
+		var target := TweenerAnimator.get_target_object(root, target)
+		var final_from := TweenerAnimator.evaluate(from, target)
+		var final_to := TweenerAnimator.evaluate(to, target)
+		var tweener := tween.tween_method(Callable(target, method), final_from, final_to, duration).set_delay(delay)
 		
 		if easing > -1:
 			tweener.set_ease(easing)

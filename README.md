@@ -119,6 +119,14 @@ If the value is valid, its tooltip will display the result of evaluation.
 
 In general, this just means that you need to write your value by hand. There is a basic validation, but it doesn't check whether the value type matches the object's property etc.
 
+You can also access the target object's properties or metadata using special syntax. Using `@property_name` will access object's properties and `$metadata_name` will access object's metadata. For example `$target_color` will do `get_meta("target_color")` on the target object. Variables are evaluated when the animation is first applied and don't support expressions (you can only use them as-is).
+
+![](Media/ValueMetadata.png)
+
+Empty field evaluates to null. The tooltip will provide reference on the valid input.
+
+![](Media/ValueHelp.png)
+
 #### Object fields
 
 Fields labeled as Object take NodePath and can be either path to a node (e.g. `Sprite2D`) or path to a sub-resource (e.g. `Sprite2D:material`). The path is relative to the root node specified when the animation is applied to the Tween (the same one as the root of TweenNode).
