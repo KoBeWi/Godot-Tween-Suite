@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=7 format=3 uid="uid://blplsxu77noo5"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
@@ -161,6 +161,15 @@ step = 0.001
 value = 1.0
 suffix = "s"
 custom_arrow_step = 0.1
+
+[node name="Label2" type="Label" parent="VBoxContainer/IntervalTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Randomize"
+
+[node name="Randomize" type="CheckBox" parent="VBoxContainer/IntervalTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CallbackTweener" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true

@@ -177,6 +177,7 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 
 class IntervalTweenerAnimator extends TweenerAnimator:
 	var time: float
+var randomize_time: bool
 	
 	func _init() -> void:
 		type = Type.INTERVAL
@@ -185,6 +186,8 @@ class IntervalTweenerAnimator extends TweenerAnimator:
 		return "Interval Tweener"
 	
 	func apply_to_tween(tween: Tween, root: Node):
+if randomize_time and time > 0:
+			time = randf_range(0, time)
 		tween.tween_interval(time)
 
 class CallbackTweenerAnimator extends TweenerAnimator:

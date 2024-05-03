@@ -68,6 +68,7 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 		tweener.delay = get_data_control("Property", ^"Delay").value
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
 		tweener.time = get_data_control("Interval", ^"Time").value
+		tweener.randomize_time = get_data_control("Interval", ^"Randomize").button_pressed
 	elif tweener is TweenAnimation.CallbackTweenerAnimator:
 		tweener.target = get_data_control("Callback", ^"Object").text
 		tweener.method = get_data_control("Callback", ^"Method").text
@@ -98,6 +99,7 @@ func apply_tweener():
 		get_data_control("Property", ^"Delay").value = tweener.delay
 	elif tweener is TweenAnimation.IntervalTweenerAnimator:
 		get_data_control("Interval", ^"Time").value = tweener.time
+		get_data_control("Interval", ^"Randomize").button_pressed = tweener.randomize_time
 	elif tweener is TweenAnimation.CallbackTweenerAnimator:
 		get_data_control("Callback", ^"Object").text = tweener.target
 		get_data_control("Callback", ^"Method").text = tweener.method
