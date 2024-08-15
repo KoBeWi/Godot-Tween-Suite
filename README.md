@@ -77,7 +77,7 @@ TweenAnimation is edited like most Godot resources. Double click a file in FileS
 
 ### Playback controls
 
-To the left are some controls for testing the animation. The root node is the base node for the animation, as already mentioned above. While it's a plain text box, it will display icon of the target node if it's valid and its name in the tooltip. You can also assign a Node from the scene using drag and drop.
+To the left are some controls for testing the animation. The root node is the base node for the animation, as already mentioned above. While it's a plain text box, it will display icon of the target node if it's valid and its name in the tooltip. You can also assign a Node from the scene using drag and drop or by clicking the edit button.
 
 ![](Media/RootName.png)
 
@@ -144,7 +144,7 @@ Equivalent of `tween.tween_property(object, property, final_value, duration)`.
 ![](Media/PropertyTweener.png)
 
 - **Object:** Path to the target object.
-- **Property:** The name of the property that will be animated, e.g. `modulate`.
+- **Property:** The name of the property that will be animated, e.g. `modulate`. Use the edit button to pick it from the target object.
 - **Final Value:** The final value of this interpolation, expressed in a value field. Make sure the type matches the property's type.
 - **Duration:** Duration of the interpolation in seconds.
 - **Relative:** If enabled, the value will be relative to the value at the time of *playing* the animation. Equivalent of `tweener.as_relative()`.

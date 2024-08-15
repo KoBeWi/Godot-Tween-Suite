@@ -16,9 +16,14 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Test Play Root Node"
+horizontal_alignment = 1
 
 [node name="RootPathEdit" parent="VBoxContainer" instance=ExtResource("2_es7qw")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="Play" type="Button" parent="VBoxContainer"]
