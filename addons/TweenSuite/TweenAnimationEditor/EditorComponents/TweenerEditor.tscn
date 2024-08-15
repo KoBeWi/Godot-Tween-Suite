@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=8 format=3 uid="uid://blplsxu77noo5"]
 
+[ext_resource type="StyleBox" uid="uid://d1xmdsfvcu5yl" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/Panel.tres" id="1_oiwl2"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_kbpp4"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="4_ccge7"]
+[ext_resource type="PackedScene" uid="uid://dkuqneh7wwwbj" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/PropertyEdit.tscn" id="5_dogfc"]
 
 [node name="TweenerEditor" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
 offset_right = 262.0
 offset_bottom = 378.0
 size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("1_oiwl2")
 script = ExtResource("1_vmb5y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -48,7 +51,6 @@ icon_name = &"Remove"
 
 [node name="PropertyTweener" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 columns = 2
 
@@ -63,9 +65,9 @@ layout_mode = 2
 layout_mode = 2
 text = "Property"
 
-[node name="Property" type="LineEdit" parent="VBoxContainer/PropertyTweener"]
+[node name="Property" parent="VBoxContainer/PropertyTweener" node_paths=PackedStringArray("object_edit") instance=ExtResource("5_dogfc")]
 layout_mode = 2
-size_flags_horizontal = 3
+object_edit = NodePath("../Object")
 
 [node name="Label3" type="Label" parent="VBoxContainer/PropertyTweener"]
 layout_mode = 2

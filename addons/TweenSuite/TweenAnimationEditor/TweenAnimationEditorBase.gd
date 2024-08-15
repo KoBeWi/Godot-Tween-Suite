@@ -17,8 +17,6 @@ func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
-	animation_view.add_theme_stylebox_override(&"panel", get_theme_stylebox(&"CanvasItemInfoOverlay", &"EditorStyles"))
-	
 	update_root(".")
 
 func create_editor(for_animation: TweenAnimation):

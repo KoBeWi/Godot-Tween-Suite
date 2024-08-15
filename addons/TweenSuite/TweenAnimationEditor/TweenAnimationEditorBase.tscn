@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://do14sdvibpe0k"]
+[gd_scene load_steps=5 format=3 uid="uid://do14sdvibpe0k"]
 
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditorBase.gd" id="1_c8gub"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="2_es7qw"]
 [ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_ls5q1"]
+[ext_resource type="StyleBox" uid="uid://d1xmdsfvcu5yl" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/Panel.tres" id="4_aoydb"]
 
 [node name="Tweens" type="HBoxContainer"]
 offset_right = 321.0
@@ -39,6 +40,7 @@ icon_name = &"Stop"
 [node name="AnimationView" type="ScrollContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("4_aoydb")
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="play_animation"]
 [connection signal="pressed" from="VBoxContainer/Stop" to="." method="stop_animation"]

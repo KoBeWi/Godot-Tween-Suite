@@ -19,6 +19,8 @@ var base_node: Node:
 var object: Object
 var update_queued: bool
 
+signal object_changed
+
 func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
@@ -43,6 +45,8 @@ func _update_object():
 			object = base_node.get_node_or_null(text)
 	else:
 		object = null
+	
+	object_changed.emit()
 	
 	if object:
 		icon.texture = EditorInterface.get_editor_theme().get_icon(object.get_class(), &"EditorIcons")
@@ -78,3 +82,11 @@ func can_drop_node(pos: Vector2, data: Variant) -> bool:
 func drop_node(pos: Vector2, data: Variant):
 	var node: Node = get_tree().root.get_node(data["nodes"][0])
 	text = base_node.get_path_to(node)
+
+func pick_node() -> void:
+	EditorInterface.popup_node_selector(node_picked)
+
+func node_picked(path: NodePath):
+	var node := get_tree().edited_scene_root.get_node_or_null(path)
+	if node:
+		text = base_node.get_path_to(node)

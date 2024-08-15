@@ -9,8 +9,6 @@ func _ready() -> void:
 	if EditorInterface.get_edited_scene_root() == self:
 		return
 	
-	add_theme_stylebox_override(&"panel", get_theme_stylebox(&"CanvasItemInfoOverlay", &"EditorStyles"))
-	
 	fill_transitions(get_data_control("Property", ^"Transition"))
 	fill_eases(get_data_control("Property", ^"Ease"))
 	fill_transitions(get_data_control("Method", ^"Transition"))
