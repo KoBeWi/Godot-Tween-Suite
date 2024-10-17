@@ -40,7 +40,7 @@ public partial class TweenAnimationWrapper : Resource
     /// </summary>
     public Tween Setup(Node rootNode, bool bindToNode = false)
     {
-        if (AnimationResource != null && rootNode != null)
+        if (AnimationResource != null && rootNode != null && rootNode.IsInsideTree())
         {
             Tween tween = rootNode.GetTree().CreateTween();
             if (bindToNode)
