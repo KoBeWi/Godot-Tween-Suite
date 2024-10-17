@@ -59,15 +59,39 @@ To use TweenAnimation with a TweenNode, simply put it in the `animation` propert
 
 The `root_node` property is the Node relative to the TweenNode that will be used by the animation. All animation Tweeners that refer to objects will use that node as a base.
 
-To use TweenAnimation in code, load the animation and call `apply_to_tween()` method.
+### GDScript
+
+To use TweenAnimation in GDScript, load the animation and call `apply_to_tween()` method.
 
 ```GDScript
 var tween = create_tween()
 var animation = load("res://tween_animation.tres")
 animation.apply_to_tween(tween, self)
 ```
-
 The method takes a Tween to which you want to apply the animation and a Node that will be root of the animation.
+
+### C#
+To use TweenAnimation in C#, create a TweenAnimationWrapper resource and link it your TweenAnimation resource.
+You can then export and link the TweenAnimationWrapper as you would any resource in C#.
+
+Then you can just call `Setup()` to create a Tween and setup it with the linked TweenAnimation.
+The method takes the root node you want the Tween to apply to and a bool to bind the Tween to your node.
+```C#
+public partial class YourNode : Node
+{
+   [Export] public TweenAnimationWrapper YourAnimation { get; set; }
+ 
+   public void StartTweenAnimation()
+   {
+       if (YourAnimation != null)
+       {
+           Tween myTween = YourAnimation.Setup(this, true);
+           // Do whatever you want with the tween as usual
+       }
+   }
+}
+```
+
 
 ## TweenAnimation editor ("Tweens")
 
