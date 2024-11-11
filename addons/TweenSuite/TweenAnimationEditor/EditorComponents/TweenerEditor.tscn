@@ -51,6 +51,7 @@ icon_name = &"Remove"
 
 [node name="PropertyTweener" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 columns = 2
 
