@@ -7,6 +7,7 @@ extends Resource
 class_name TweenAnimation
 
 var steps: Array
+var parameters: Dictionary;
 
 ## Applies this animation to the given [Tween]. The [param root] is the base node for animation paths. Called automatically when using [TweenNode].
 ## [codeblock]
@@ -24,7 +25,47 @@ func apply_to_tween(tween: Tween, root: Node):
 			else:
 				tween.parallel()
 			
-			tweener.apply_to_tween(tween, root)
+			tweener.apply_to_tween(tween, root, self)
+
+## Sets a custom parameter, used for code defined values. Can be accessed with "%name" in the editor.
+## [codeblock]
+## var tween = create_tween()
+## var animation = load("res://tween_animation.tres")
+## animation.set_parameter("MyName", 0.5f)
+## animation.apply_to_tween(tween, self)
+## [/codeblock]
+func set_parameter(name: StringName, value: Variant):
+	parameters[name] = value
+	
+## Removes a custom parameter.
+## [codeblock]
+## var tween = create_tween()
+## var animation = load("res://tween_animation.tres")
+## animation.set_parameter("MyName", 0.5f)
+## animation.apply_to_tween(tween, self)
+## animation.remove_parameter("MyName")
+## [/codeblock]
+func remove_parameter(name: StringName):
+	parameters.erase(name)
+
+## Removes all parameters
+## [codeblock]
+## var tween = create_tween()
+## var animation = load("res://tween_animation.tres")
+## animation.set_parameter("MyName", 0.5f)
+## animation.set_parameter("MyName2", 0.5f)
+## animation.apply_to_tween(tween, self)
+## animation.remove_all_parameters()
+## [/codeblock]
+func remove_all_parameters():
+	parameters.clear()
+
+## Return the value of a parameter
+## [codeblock]
+## var value = animation.get_parameter("MyName")
+## [/codeblock]
+func get_parameter(name: StringName) -> Variant:
+	return parameters[name];
 
 func _get_property_list() -> Array[Dictionary]:
 	var ret: Array[Dictionary]
@@ -103,7 +144,7 @@ class TweenerAnimator:
 		for property in data:
 			set(property, data[property])
 	
-	func apply_to_tween(tween: Tween, root: Node):
+	func apply_to_tween(tween: Tween, root: Node, animation:TweenAnimation):
 		pass
 	
 	static func get_target_object(root: Node, path: NodePath) -> Object:
@@ -129,12 +170,14 @@ class TweenerAnimator:
 		tweener.apply_dictionary(data)
 		return tweener
 	
-	static func evaluate(data: Variant, object: Object) -> Variant:
+	static func evaluate(data: Variant, object: Object, animation:TweenAnimation ) -> Variant:
 		if data is String:
 			if data.begins_with("@"):
 				return object.get(data.substr(1))
 			elif data.begins_with("$"):
 				return object.get_meta(data.substr(1))
+			elif data.begins_with("%"):
+				return animation.get_parameter(data.substr(1))
 		
 		return data
 
@@ -156,10 +199,10 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 	func get_name() -> String:
 		return "Property Tweener"
 	
-	func apply_to_tween(tween: Tween, root: Node):
+	func apply_to_tween(tween: Tween, root: Node, animation:TweenAnimation):
 		var object := TweenerAnimator.get_target_object(root, target)
 		
-		var final_final_value: Variant = TweenerAnimator.evaluate(final_value, object)
+		var final_final_value: Variant = TweenerAnimator.evaluate(final_value, object, animation)
 		var tweener := tween.tween_property(object, property, final_final_value, duration).set_delay(delay)
 		if relative:
 			tweener.as_relative()
@@ -172,7 +215,7 @@ class PropertyTweenerAnimator extends TweenerAnimator:
 		if from_current:
 			tweener.from_current()
 		elif from != null:
-			var final_from: Variant = TweenerAnimator.evaluate(from, object)
+			var final_from: Variant = TweenerAnimator.evaluate(from, object, animation)
 			tweener.from(final_from)
 
 class IntervalTweenerAnimator extends TweenerAnimator:
@@ -184,7 +227,7 @@ class IntervalTweenerAnimator extends TweenerAnimator:
 	func get_name() -> String:
 		return "Interval Tweener"
 	
-	func apply_to_tween(tween: Tween, root: Node):
+	func apply_to_tween(tween: Tween, root: Node, animation:TweenAnimation):
 		tween.tween_interval(time)
 
 class CallbackTweenerAnimator extends TweenerAnimator:
@@ -198,7 +241,7 @@ class CallbackTweenerAnimator extends TweenerAnimator:
 	func get_name() -> String:
 		return "Callback Tweener"
 	
-	func apply_to_tween(tween: Tween, root: Node):
+	func apply_to_tween(tween: Tween, root: Node, animation:TweenAnimation):
 		tween.tween_callback(Callable(TweenerAnimator.get_target_object(root, target), method)).set_delay(delay)
 
 class MethodTweenerAnimator extends TweenerAnimator:
@@ -217,10 +260,10 @@ class MethodTweenerAnimator extends TweenerAnimator:
 	func get_name() -> String:
 		return "Method Tweener"
 	
-	func apply_to_tween(tween: Tween, root: Node):
+	func apply_to_tween(tween: Tween, root: Node, animation:TweenAnimation):
 		var target := TweenerAnimator.get_target_object(root, target)
-		var final_from := TweenerAnimator.evaluate(from, target)
-		var final_to := TweenerAnimator.evaluate(to, target)
+		var final_from := TweenerAnimator.evaluate(from, target, animation)
+		var final_to := TweenerAnimator.evaluate(to, target, animation)
 		var tweener := tween.tween_method(Callable(target, method), final_from, final_to, duration).set_delay(delay)
 		
 		if easing > -1:

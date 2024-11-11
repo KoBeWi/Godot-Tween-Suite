@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 namespace Godot.TweenSuite;
 
@@ -15,8 +16,12 @@ public partial class TweenAnimationWrapper : Resource
     [Export(PropertyHint.ResourceType, "TweenAnimation")]
     public Resource AnimationResource{ get; set; }
 
-    // Name of the "apply_to_tween" method in the GDScript
+    // Method bridge
     private readonly StringName _applyToTweenMethod = new StringName("apply_to_tween");
+    private readonly StringName _setParameterMethod = new StringName("set_parameter");
+    private readonly StringName _removeParameterMethod = new StringName("remove_parameter");
+    private readonly StringName _removeAllParametersMethod = new StringName("remove_all_parameters");
+    private readonly StringName _getParameterMethod = new StringName("get_parameter");
     
     /// <summary>
     /// <para>Creates a <see cref="Godot.Tween"/> and setups it with your linked TweenAnimation.</para>
@@ -66,5 +71,60 @@ public partial class TweenAnimationWrapper : Resource
             return true;
         }
         return false;
+    }
+    
+    /// <summary>
+    /// <para>Sets a runtime parameter on the animation. Used for code defined values.</para>
+    /// <para>Setting a null value will remove the parameter, equivalent to RemoveParameter().</para>
+    /// <para> <b>name</b> is the name of the parameter. Can be accessed in the editor via "%name" in the variant fields.</para>
+    /// <para> <b>value</b> your custom value.</para>
+    /// </summary>
+    public bool SetParameter(StringName name, Variant value)
+    {
+        if (AnimationResource != null && name != null)
+        {
+            AnimationResource.Call(_setParameterMethod, name, value);
+            return true;
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// <para>Removes a runtime parameter on the animation.</para>
+    /// <para> <b>name</b> is the name of the parameter.</para>
+    /// </summary>
+    public bool RemoveParameter(StringName name)
+    {
+        if (AnimationResource != null && name != null)
+        {
+            AnimationResource.Call(_removeParameterMethod, name);
+            return true;
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// <para>Removes all parameters on the animation.</para>
+    /// </summary>
+    public bool RemoveAllParameters()
+    {
+        if (AnimationResource != null)
+        {
+            AnimationResource.Call(_removeAllParametersMethod);
+            return true;
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// <para>Removes all parameters on the animation.</para>
+    /// </summary>
+    public Variant GetParameter(StringName name)
+    {
+        if (AnimationResource != null)
+        {
+            return AnimationResource.Call(_getParameterMethod, name);
+        }
+        return default;
     }
 }

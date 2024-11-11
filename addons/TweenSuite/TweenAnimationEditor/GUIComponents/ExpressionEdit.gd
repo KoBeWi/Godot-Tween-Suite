@@ -13,22 +13,25 @@ var result: Variant:
 			tooltip_text = """<null>
 Possible input:
 Variant constructor (Color(1, 0, 0), "string", Vector2(), etc.)
-@property name
-$metadata name
+@property name on the Object
+$metadata name on the Object
+%parameter name on the TweenAnimation
 """
 		else:
 			if not sync:
 				text = var_to_str(result)
 				if result is String:
-					if result.begins_with("@") or result.begins_with("$"):
+					if result.begins_with("@") or result.begins_with("$") or result.begins_with("%"):
 						text = result
 			
 			tooltip_text = str(result)
 			if result is String:
 				if result.begins_with("@"):
-					tooltip_text = "Property: \"%s\"" % result.substr(1)
+					tooltip_text = "Object Property: \"%s\"" % result.substr(1)
 				elif result.begins_with("$"):
-					tooltip_text = "Metadata: \"%s\"" % result.substr(1)
+					tooltip_text = "Object Metadata: \"%s\"" % result.substr(1)
+				elif result.begins_with("%"):
+					tooltip_text = "TweenAnimation Parameter: \"%s\"" % result.substr(1)
 
 func _ready() -> void:
 	var timer := Timer.new()
@@ -43,7 +46,7 @@ func evaluate():
 	var value: Variant
 	if text.is_empty():
 		value = null
-	elif text.begins_with("@") or text.begins_with("$"):
+	elif text.begins_with("@") or text.begins_with("$") or text.begins_with("%"):
 		value = text
 	else:
 		var expression := Expression.new()
