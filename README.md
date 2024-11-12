@@ -72,7 +72,8 @@ The method takes a Tween to which you want to apply the animation and a Node tha
 
 #### Parameters
 You can also add/remove parameters to be able to target them in the editor with a specific syntax described in the "Value fields" section below.
-Useful to be able to assign custom values per animation instead of having to create properties or meta data
+Useful to be able to assign custom values per animation instead of having to create properties or meta data.
+Be aware that resources are shared by default so parameters will apply to all instances if you don't duplicate them.
 Make sure to set the parameters before calling `apply_to_tween()`
 
 Methods are : 
@@ -116,36 +117,7 @@ public partial class YourNode : Node
 ```
 
 #### Parameters
-You can also add/remove parameters to be able to target them in the editor with a specific syntax described in the "Value fields" section below.
-Useful to be able to assign custom values per animation instead of having to create properties or meta data.
-Make sure to set the parameters before calling `Setup()`
-
-Methods are :
-
-`SetParameter(StringName name, Variant value)` to set a parameter for the given name
-
-`RemoveParameter(StringName name)` to remove the parameter for the given name
-
-`RemoveAllParameters()` to remove all set parameters
-
-`Variant GetParameters(StringName name)` to access a parameter value for the given name
-
-```C#
-public partial class YourNode : Node
-{
-   [Export] public TweenAnimationWrapper YourAnimation { get; set; }
- 
-   public void StartTweenAnimation()
-   {
-       if (YourAnimation != null)
-       {
-           YourAnimation.SetParameter("ParameterName", myValue);
-           Tween myTween = YourAnimation.Setup(this, true);
-           // Do whatever you want with the tween as usual
-       }
-   }
-}
-```
+You can also use parameters in C# (see Parameter in GDScript just above), all functions are duplicated in the TweenAnimationWrapper.
 
 
 ## TweenAnimation editor ("Tweens")
