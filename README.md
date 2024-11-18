@@ -70,6 +70,30 @@ animation.apply_to_tween(tween, self)
 ```
 The method takes a Tween to which you want to apply the animation and a Node that will be root of the animation.
 
+#### Parameters
+You can also add/remove parameters to be able to target them in the editor with a specific syntax described in the "Value fields" section below.
+Useful to be able to assign custom values per animation instead of having to create properties or meta data.
+Be aware that resources are shared by default so parameters will apply to all instances if you don't duplicate them.
+Make sure to set the parameters before calling `apply_to_tween()`
+
+Methods are : 
+
+`set_parameter(StringName name, Variant value)` to set a parameter for the given name
+
+`remove_parameter(StringName name)` to remove the parameter for the given name
+
+`remove_all_parameters()` to remove all set parameters
+
+`get_parameters(StringName name) -> Variant` to access a parameter value for the given name
+
+```GDScript
+var tween = create_tween()
+var animation = load("res://tween_animation.tres")
+animation.set_parameter("MyParameterName", myValue)
+animation.apply_to_tween(tween, self)
+animation.remove_all_parameters();
+```
+
 ### C#
 To use TweenAnimation in C#, create a TweenAnimationWrapper resource and link it your TweenAnimation resource.
 You can then export and link the TweenAnimationWrapper as you would any resource in C#.
@@ -91,6 +115,9 @@ public partial class YourNode : Node
    }
 }
 ```
+
+#### Parameters
+You can also use parameters in C# (see Parameter in GDScript just above), all functions are duplicated in the TweenAnimationWrapper.
 
 
 ## TweenAnimation editor ("Tweens")
@@ -143,7 +170,7 @@ If the value is valid, its tooltip will display the result of evaluation.
 
 In general, this just means that you need to write your value by hand. There is a basic validation, but it doesn't check whether the value type matches the object's property etc.
 
-You can also access the target object's properties or metadata using special syntax. Using `@property_name` will access object's properties and `$metadata_name` will access object's metadata. For example `$target_color` will do `get_meta("target_color")` on the target object. Variables are evaluated when the animation is first applied and don't support expressions (you can only use them as-is).
+You can also access the target object's properties or metadata using special syntax. Using `@property_name` will access object's properties , `$metadata_name` will access object's metadata and `%parameter_name` will access the animation parameters. For example `$target_color` will do `get_meta("target_color")` on the target object. Variables are evaluated when the animation is first applied and don't support expressions (you can only use them as-is).
 
 ![](Media/ValueMetadata.png)
 
