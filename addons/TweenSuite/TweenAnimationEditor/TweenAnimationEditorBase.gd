@@ -29,6 +29,9 @@ func create_editor(for_animation: TweenAnimation):
 		update_play()
 		return
 	
+	if not is_instance_valid(root_path_edit.object):
+		return
+	
 	animation_editor = preload("./TweenAnimationEditor.tscn").instantiate()
 	animation_editor.animation = for_animation
 	animation_view.add_child(animation_editor)
