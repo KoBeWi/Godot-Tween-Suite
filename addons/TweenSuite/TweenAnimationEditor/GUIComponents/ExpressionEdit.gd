@@ -3,11 +3,11 @@ extends LineEdit
 
 var sync: bool
 
-var result: Variant:
+var value: Variant:
 	set(r):
-		result = r
+		value = r
 		
-		if result == null:
+		if value == null:
 			if not sync:
 				text = ""
 			tooltip_text = """<null>
@@ -19,19 +19,19 @@ $metadata name on the Object
 """
 		else:
 			if not sync:
-				text = var_to_str(result)
-				if result is String:
-					if result.begins_with("@") or result.begins_with("$") or result.begins_with("%"):
-						text = result
+				text = var_to_str(value)
+				if value is String:
+					if value.begins_with("@") or value.begins_with("$") or value.begins_with("%"):
+						text = value
 			
-			tooltip_text = str(result)
-			if result is String:
-				if result.begins_with("@"):
-					tooltip_text = "Object Property: \"%s\"" % result.substr(1)
-				elif result.begins_with("$"):
-					tooltip_text = "Object Metadata: \"%s\"" % result.substr(1)
-				elif result.begins_with("%"):
-					tooltip_text = "TweenAnimation Parameter: \"%s\"" % result.substr(1)
+			tooltip_text = str(value)
+			if value is String:
+				if value.begins_with("@"):
+					tooltip_text = "Object Property: \"%s\"" % value.substr(1)
+				elif value.begins_with("$"):
+					tooltip_text = "Object Metadata: \"%s\"" % value.substr(1)
+				elif value.begins_with("%"):
+					tooltip_text = "TweenAnimation Parameter: \"%s\"" % value.substr(1)
 
 func _ready() -> void:
 	var timer := Timer.new()
@@ -43,18 +43,18 @@ func _ready() -> void:
 	text_changed.connect(timer.start.unbind(1))
 
 func evaluate():
-	var value: Variant
+	var result: Variant
 	if text.is_empty():
-		value = null
+		result = null
 	elif text.begins_with("@") or text.begins_with("$") or text.begins_with("%"):
-		value = text
+		result = text
 	else:
 		var expression := Expression.new()
 		if expression.parse(text) != OK:
 			modulate = Color.RED
 			return
 		
-		value = expression.execute()
+		result = expression.execute()
 		if expression.has_execute_failed():
 			modulate = Color.RED
 			return
@@ -62,5 +62,5 @@ func evaluate():
 	modulate = Color.WHITE
 	
 	sync = true
-	result = value
+	value = result
 	sync = false

@@ -127,13 +127,18 @@ class TweenerAnimator:
 	func get_name() -> String:
 		return "Tweener"
 	
+	func get_serializable_properties() -> Array[String]:
+		var ret: Array[String]
+		ret.assign(get_property_list().filter(func(property: Dictionary) -> bool:
+			return property["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE).map(func(property: Dictionary) -> String:
+				return property["name"]))
+		return ret
+	
 	func as_dictionary() -> Dictionary:
-		var ret := {}
+		var ret: Dictionary
 		
-		for property in get_property_list():
-			if property["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE:
-				var propname: String = property["name"]
-				ret[propname] = get(propname)
+		for property in get_serializable_properties():
+			ret[property] = get(property)
 		
 		return ret
 	

@@ -6,7 +6,7 @@
 [node name="PropertyEdit" type="HBoxContainer"]
 script = ExtResource("1_qomrv")
 
-[node name="PropertyName" type="LineEdit" parent="."]
+[node name="Name" type="LineEdit" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -15,4 +15,4 @@ layout_mode = 2
 script = ExtResource("2_w7uw8")
 icon_name = &"Edit"
 
-[connection signal="pressed" from="PickButton" to="." method="pick_property"]
+[connection signal="pressed" from="PickButton" to="." method="pick"]

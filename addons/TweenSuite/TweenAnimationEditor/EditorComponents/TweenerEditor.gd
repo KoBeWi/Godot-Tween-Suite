@@ -1,7 +1,20 @@
 @tool
 extends Control
 
+const Type = TweenAnimation.TweenerAnimator.Type
+
 var tweener: TweenAnimation.TweenerAnimator
+var tweener_edits: Array[Node]:
+	get:
+		if tweener_edits.is_empty():
+			tweener_edits = [
+				%PropertyTweener,
+				%IntervalTweener,
+				%CallbackTweener,
+				%MethodTweener,
+				%SubtweenTweener,
+			]
+		return tweener_edits
 
 signal changed
 
@@ -9,10 +22,10 @@ func _ready() -> void:
 	if is_part_of_edited_scene():
 		return
 	
-	fill_transitions(get_data_control("Property", ^"Transition"))
-	fill_eases(get_data_control("Property", ^"Ease"))
-	fill_transitions(get_data_control("Method", ^"Transition"))
-	fill_eases(get_data_control("Method", ^"Ease"))
+	fill_transitions(get_data_control(Type.PROPERTY, "transition"))
+	fill_eases(get_data_control(Type.PROPERTY, "easing"))
+	fill_transitions(get_data_control(Type.METHOD, "transition"))
+	fill_eases(get_data_control(Type.METHOD, "easing"))
 	update_id()
 	
 func fill_transitions(button: OptionButton):
@@ -42,84 +55,33 @@ func fill_eases(button: OptionButton):
 func set_tweener(tw: TweenAnimation.TweenerAnimator):
 	tweener = tw
 	%Type.text = tweener.get_name()
-	
-	if tweener is TweenAnimation.PropertyTweenerAnimator:
-		%PropertyTweener.show()
-	elif tweener is TweenAnimation.IntervalTweenerAnimator:
-		%IntervalTweener.show()
-	elif tweener is TweenAnimation.CallbackTweenerAnimator:
-		%CallbackTweener.show()
-	elif tweener is TweenAnimation.MethodTweenerAnimator:
-		%MethodTweener.show()
-	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
-		%SubtweenTweener.show()
+	tweener_edits[tweener.type].show()
+
+func get_value_property(control: Control) -> StringName:
+	if control is Button:
+		return &"button_pressed"
+	return &"value"
 
 func get_data() -> TweenAnimation.TweenerAnimator:
-	if tweener is TweenAnimation.PropertyTweenerAnimator:
-		tweener.target = get_data_control("Property", ^"Object").text
-		tweener.property = get_data_control("Property", ^"Property").text
-		tweener.final_value = get_data_control("Property", ^"FinalValue").result
-		tweener.duration = get_data_control("Property", ^"Duration").value
-		tweener.relative = get_data_control("Property", ^"Relative").button_pressed
-		tweener.easing = get_data_control("Property", ^"Ease").get_selected_id()
-		tweener.transition = get_data_control("Property", ^"Transition").get_selected_id()
-		tweener.from_current = get_data_control("Property", ^"FromCurrent").button_pressed
-		tweener.from = get_data_control("Property", ^"From").result
-		tweener.delay = get_data_control("Property", ^"Delay").value
-	elif tweener is TweenAnimation.IntervalTweenerAnimator:
-		tweener.time = get_data_control("Interval", ^"Time").value
-	elif tweener is TweenAnimation.CallbackTweenerAnimator:
-		tweener.target = get_data_control("Callback", ^"Object").text
-		tweener.method = get_data_control("Callback", ^"Method").text
-		tweener.delay = get_data_control("Callback", ^"Delay").value
-	elif tweener is TweenAnimation.MethodTweenerAnimator:
-		tweener.target = get_data_control("Method", ^"Object").text
-		tweener.method = get_data_control("Method", ^"Method").text
-		tweener.from = get_data_control("Method", ^"From").result
-		tweener.to = get_data_control("Method", ^"To").result
-		tweener.duration = get_data_control("Method", ^"Duration").value
-		tweener.easing = get_data_control("Method", ^"Ease").get_selected_id()
-		tweener.transition = get_data_control("Method", ^"Transition").get_selected_id()
-		tweener.delay = get_data_control("Method", ^"Delay").value
-	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
-		tweener.subtween = get_data_control("Subtween", ^"Object").text
-		tweener.delay = get_data_control("Subtween", ^"Delay").value
+	for property in tweener.get_serializable_properties():
+		if property == "type":
+			continue
+		
+		var data_control := get_data_control(tweener.type, property)
+		tweener.set(property, data_control.get(get_value_property(data_control)))
 	
 	return tweener
 
 func apply_tweener():
-	if tweener is TweenAnimation.PropertyTweenerAnimator:
-		get_data_control("Property", ^"Object").text = tweener.target
-		get_data_control("Property", ^"Property").text = tweener.property
-		get_data_control("Property", ^"FinalValue").result = tweener.final_value
-		get_data_control("Property", ^"Duration").value = tweener.duration
-		get_data_control("Property", ^"Relative").button_pressed = tweener.relative
-		set_selected_id(get_data_control("Property", ^"Ease"), tweener.easing)
-		set_selected_id(get_data_control("Property", ^"Transition"), tweener.transition)
-		get_data_control("Property", ^"FromCurrent").button_pressed = tweener.from_current
-		get_data_control("Property", ^"From").result = tweener.from
-		get_data_control("Property", ^"Delay").value = tweener.delay
-	elif tweener is TweenAnimation.IntervalTweenerAnimator:
-		get_data_control("Interval", ^"Time").value = tweener.time
-	elif tweener is TweenAnimation.CallbackTweenerAnimator:
-		get_data_control("Callback", ^"Object").text = tweener.target
-		get_data_control("Callback", ^"Method").text = tweener.method
-		get_data_control("Callback", ^"Delay").value = tweener.delay
-	elif tweener is TweenAnimation.MethodTweenerAnimator:
-		get_data_control("Method", ^"Object").text = tweener.target
-		get_data_control("Method", ^"Method").text = tweener.method
-		get_data_control("Method", ^"From").result = tweener.from
-		get_data_control("Method", ^"To").result = tweener.to
-		get_data_control("Method", ^"Duration").value = tweener.duration
-		set_selected_id(get_data_control("Method", ^"Ease"), tweener.easing)
-		set_selected_id(get_data_control("Method", ^"Transition"), tweener.transition)
-		get_data_control("Method", ^"Delay").value = tweener.delay
-	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
-		get_data_control("Subtween", ^"Object").text = tweener.subtween
-		get_data_control("Subtween", ^"Delay").value = tweener.delay
+	for property in tweener.get_serializable_properties():
+		if property == "type":
+			continue
+		
+		var data_control := get_data_control(tweener.type, property)
+		data_control.set(get_value_property(data_control), tweener.get(property))
 
-func get_data_control(tw: String, control: NodePath):
-	return get_node("%%%sTweener" % tw).get_node(control)
+func get_data_control(type: Type, control: String) -> Control:
+	return tweener_edits[type].get_node(control)
 
 func set_selected_id(button: OptionButton, id: int):
 	for i in button.item_count:
@@ -140,10 +102,10 @@ func emit_changed():
 	changed.emit()
 
 func from_current_toggled(toggled_on: bool) -> void:
-	get_data_control("Property", ^"From").editable = not toggled_on
+	get_data_control(Type.PROPERTY, "from").editable = not toggled_on
 
 func set_root(root: Node):
-	get_data_control("Property", ^"Object").base_node = root
-	get_data_control("Callback", ^"Object").base_node = root
-	get_data_control("Method", ^"Object").base_node = root
-	get_data_control("Subtween", ^"Object").base_node = root
+	get_data_control(Type.PROPERTY, "target").base_node = root
+	get_data_control(Type.CALLBACK, "target").base_node = root
+	get_data_control(Type.METHOD, "target").base_node = root
+	get_data_control(Type.SUBTWEEN, "subtween").base_node = root

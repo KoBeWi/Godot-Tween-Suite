@@ -6,7 +6,7 @@ extends Control
 @onready var icon: TextureRect = $Icon
 @onready var path: LineEdit = $Path
 
-var text: String:
+var value: String:
 	set(t):
 		path.text = t
 		update_object()
@@ -40,11 +40,11 @@ func update_object():
 func _update_object():
 	update_queued = false
 	
-	if base_node and not text.is_empty():
-		if text.contains(":"):
-			object = TweenAnimation.TweenerAnimator.get_target_object(base_node, text)
+	if base_node and not value.is_empty():
+		if value.contains(":"):
+			object = TweenAnimation.TweenerAnimator.get_target_object(base_node, value)
 		else:
-			object = base_node.get_node_or_null(text)
+			object = base_node.get_node_or_null(value)
 	else:
 		object = null
 	
@@ -102,7 +102,7 @@ func can_drop_node(pos: Vector2, data: Variant) -> bool:
 
 func drop_node(pos: Vector2, data: Variant):
 	var node: Node = get_tree().root.get_node(data["nodes"][0])
-	text = base_node.get_path_to(node)
+	value = base_node.get_path_to(node)
 
 func pick_node() -> void:
 	if filter_type.is_empty():
@@ -113,4 +113,4 @@ func pick_node() -> void:
 func node_picked(path: NodePath):
 	var node := get_tree().edited_scene_root.get_node_or_null(path)
 	if node:
-		text = base_node.get_path_to(node)
+		value = base_node.get_path_to(node)

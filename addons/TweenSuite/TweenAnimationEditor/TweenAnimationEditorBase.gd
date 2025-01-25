@@ -45,7 +45,7 @@ func edit(animation: TweenAnimation):
 func set_node(node: TweenNode):
 	var root := node.get_node_or_null(node.animation_root)
 	if root:
-		root_path_edit.text = EditorInterface.get_edited_scene_root().get_path_to(root)
+		root_path_edit.value = EditorInterface.get_edited_scene_root().get_path_to(root)
 		update_root()
 
 func play_animation() -> void:
@@ -108,10 +108,10 @@ func update_root(new_text: String = "") -> void:
 	root_path_edit.base_node = EditorInterface.get_edited_scene_root()
 	
 	if new_text.is_empty():
-		new_text = root_path_edit.text
+		new_text = root_path_edit.value
 	
 	root_path = new_text
-	root_path_edit.text = new_text
+	root_path_edit.value = new_text
 	root_valid = root_path_edit.object != null and root_path_edit.object is Node
 	
 	if animation_editor:
