@@ -2,7 +2,7 @@
 ##
 ## TweenNode is a [Node] wrapper for [Tween]. You can put it on your scene and configure from the inspector. The node can either use [TweenAnimation] resource or you can setup it from code (see [method initialize_animation]). The [Tween] is created automatically at the end of the frame when [TweenNode] is ready and is automatically bound to this node. It will also be valid as long as the node exists.
 @tool
-@icon("uid://brtn2nqtj48pj")
+@icon("uid://4yavgmppmd22")
 extends Node
 class_name TweenNode
 

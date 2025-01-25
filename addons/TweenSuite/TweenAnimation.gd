@@ -2,7 +2,7 @@
 ##
 ## [TweenAnimation] can be used to animate [Tween] node without using code. You can edit the animation in the [code]Tweens[/code] bottom tab when the resource is selected. Once created, the animation can be applied to a tween to create all [Tweener]s as defined in the animation. You can either use it with a [TweenNode] or a regular tween by calling [method apply_to_tween].
 @tool
-@icon("uid://dp7rsgqw46he6")
+@icon("uid://b6nr7ridvg6xq")
 extends Resource
 class_name TweenAnimation
 
