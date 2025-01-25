@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkuqneh7wwwbj"]
 
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/PropertyEdit.gd" id="1_qomrv"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_w7uw8"]
+[ext_resource type="Script" uid="uid://bar2us7kx57fn" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/PropertyEdit.gd" id="1_qomrv"]
+[ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_w7uw8"]
 
 [node name="PropertyEdit" type="HBoxContainer"]
 script = ExtResource("1_qomrv")

@@ -14,7 +14,7 @@ var preview_tween: Tween
 var revert: Dictionary
 
 func _ready() -> void:
-	if EditorInterface.get_edited_scene_root() == self:
+	if is_part_of_edited_scene():
 		return
 	
 	update_root(".")

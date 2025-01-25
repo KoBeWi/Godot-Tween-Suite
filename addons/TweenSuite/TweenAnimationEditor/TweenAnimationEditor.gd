@@ -14,7 +14,7 @@ var animation: TweenAnimation
 signal expanded
 
 func _ready() -> void:
-	if EditorInterface.get_edited_scene_root() == self:
+	if is_part_of_edited_scene():
 		return
 	
 	loading = true

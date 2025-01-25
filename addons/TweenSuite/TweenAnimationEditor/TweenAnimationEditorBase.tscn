@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://do14sdvibpe0k"]
 
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditorBase.gd" id="1_c8gub"]
+[ext_resource type="Script" uid="uid://bqrk8t65vtnb6" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditorBase.gd" id="1_c8gub"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="2_es7qw"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_ls5q1"]
+[ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_ls5q1"]
 [ext_resource type="StyleBox" uid="uid://d1xmdsfvcu5yl" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/Panel.tres" id="4_aoydb"]
 
 [node name="Tweens" type="HBoxContainer"]

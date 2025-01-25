@@ -6,7 +6,7 @@ var tweener: TweenAnimation.TweenerAnimator
 signal changed
 
 func _ready() -> void:
-	if EditorInterface.get_edited_scene_root() == self:
+	if is_part_of_edited_scene():
 		return
 	
 	fill_transitions(get_data_control("Property", ^"Transition"))

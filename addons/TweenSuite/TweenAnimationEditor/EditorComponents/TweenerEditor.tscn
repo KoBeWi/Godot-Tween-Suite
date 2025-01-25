@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://blplsxu77noo5"]
+[gd_scene load_steps=9 format=3 uid="uid://blplsxu77noo5"]
 
 [ext_resource type="StyleBox" uid="uid://d1xmdsfvcu5yl" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/Panel.tres" id="1_oiwl2"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_kbpp4"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
+[ext_resource type="Script" uid="uid://qfrmorfj658w" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
+[ext_resource type="Script" uid="uid://c4tys8q3qunhe" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
+[ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_kbpp4"]
+[ext_resource type="Script" uid="uid://0qwp7kkklqhy" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="4_ccge7"]
 [ext_resource type="PackedScene" uid="uid://dkuqneh7wwwbj" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/PropertyEdit.tscn" id="5_dogfc"]
+[ext_resource type="PackedScene" uid="uid://d08ri5ior6sua" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/MethodEdit.tscn" id="8_ja1xn"]
 
 [node name="TweenerEditor" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
@@ -184,9 +185,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Method"
 
-[node name="Method" type="LineEdit" parent="VBoxContainer/CallbackTweener"]
+[node name="Method" parent="VBoxContainer/CallbackTweener" node_paths=PackedStringArray("object_edit") instance=ExtResource("8_ja1xn")]
 layout_mode = 2
-size_flags_horizontal = 3
+object_edit = NodePath("../Object")
 
 [node name="Label3" type="Label" parent="VBoxContainer/CallbackTweener"]
 visible = false
@@ -226,9 +227,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Method"
 
-[node name="Method" type="LineEdit" parent="VBoxContainer/MethodTweener"]
+[node name="Method" parent="VBoxContainer/MethodTweener" node_paths=PackedStringArray("object_edit") instance=ExtResource("8_ja1xn")]
 layout_mode = 2
-size_flags_horizontal = 3
+object_edit = NodePath("../Object")
 
 [node name="Label3" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2

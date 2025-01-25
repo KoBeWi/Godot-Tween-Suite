@@ -3,14 +3,14 @@ extends Control
 
 @export var object_edit: Node
 
-@onready var property_name: LineEdit = $PropertyName
+@onready var method_name: LineEdit = $MethodName
 @onready var pick_button: Button = $PickButton
 
 var text: String:
 	set(t):
-		property_name.text = t
+		method_name.text = t
 	get:
-		return property_name.text
+		return method_name.text
 
 func _ready() -> void:
 	if is_part_of_edited_scene():
@@ -21,8 +21,8 @@ func update_button():
 	pick_button.disabled = object_edit.object == null
 
 func pick_property() -> void:
-	EditorInterface.popup_property_selector(object_edit.object, property_picked, [], text)
+	EditorInterface.popup_method_selector(object_edit.object, method_picked, text)
 
-func property_picked(path: NodePath):
-	if not path.is_empty():
-		text = path
+func method_picked(method: StringName):
+	if not method.is_empty():
+		text = method

@@ -22,7 +22,7 @@ var update_queued: bool
 signal object_changed
 
 func _ready() -> void:
-	if EditorInterface.get_edited_scene_root() == self:
+	if is_part_of_edited_scene():
 		return
 	
 	update_object()
@@ -84,7 +84,7 @@ func drop_node(pos: Vector2, data: Variant):
 	text = base_node.get_path_to(node)
 
 func pick_node() -> void:
-	EditorInterface.popup_node_selector(node_picked)
+	EditorInterface.popup_node_selector(node_picked, [], object as Node)
 
 func node_picked(path: NodePath):
 	var node := get_tree().edited_scene_root.get_node_or_null(path)

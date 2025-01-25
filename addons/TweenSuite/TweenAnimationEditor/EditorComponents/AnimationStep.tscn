@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b4un04tpw10g5"]
 
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/AnimationStep.gd" id="1_dww5o"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_44ei7"]
-[ext_resource type="Script" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_dqn4s"]
+[ext_resource type="Script" uid="uid://bxd0cjjl161o5" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/AnimationStep.gd" id="1_dww5o"]
+[ext_resource type="Script" uid="uid://c4tys8q3qunhe" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_44ei7"]
+[ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_dqn4s"]
 
 [node name="AnimationStep" type="HBoxContainer"]
 script = ExtResource("1_dww5o")
