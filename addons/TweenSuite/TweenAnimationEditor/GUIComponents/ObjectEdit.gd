@@ -51,7 +51,11 @@ func _update_object():
 	object_changed.emit()
 	
 	if object:
-		icon.texture = EditorInterface.get_editor_theme().get_icon(object.get_class(), &"EditorIcons")
+		if object is TweenNode:
+			icon.texture = load("uid://4yavgmppmd22")
+		else:
+			icon.texture = EditorInterface.get_editor_theme().get_icon(object.get_class(), &"EditorIcons")
+		
 		if validate_type(object):
 			path.modulate = Color.WHITE
 		else:
