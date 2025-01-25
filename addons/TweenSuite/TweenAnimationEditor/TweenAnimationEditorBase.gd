@@ -74,9 +74,15 @@ func create_revert(from: TweenAnimation, animation_root: Node) -> TweenAnimation
 	var new_anim := TweenAnimation.new()
 	var new_steps := []
 	
+	const allowed_tweeners = [
+		TweenAnimation.TweenerAnimator.Type.PROPERTY,
+		TweenAnimation.TweenerAnimator.Type.INTERVAL,
+		#TweenAnimation.TweenerAnimator.Type.SUBTWEEN,
+	]
+	
 	for step: Array in from.steps:
-		new_steps.append(step.filter(func(tweener) -> bool:
-			return tweener is TweenAnimation.PropertyTweenerAnimator or tweener is TweenAnimation.IntervalTweenerAnimator or tweener is TweenAnimation.SubtweenTweenerAnimator))
+		new_steps.append(step.filter(func(tweener: TweenAnimation.TweenerAnimator) -> bool:
+			return tweener.type in allowed_tweeners))
 		
 		for tweener in new_steps.back():
 			if tweener is TweenAnimation.PropertyTweenerAnimator:

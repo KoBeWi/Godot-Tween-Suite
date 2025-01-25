@@ -52,7 +52,10 @@ func _update_object():
 	
 	if object:
 		icon.texture = EditorInterface.get_editor_theme().get_icon(object.get_class(), &"EditorIcons")
-		path.modulate = Color.WHITE
+		if validate_type(object):
+			path.modulate = Color.WHITE
+		else:
+			path.modulate = Color.RED
 		
 		if object is Node:
 			icon.tooltip_text = object.name
@@ -62,6 +65,19 @@ func _update_object():
 		icon.texture = EditorInterface.get_editor_theme().get_icon(&"MissingNode", &"EditorIcons")
 		icon.tooltip_text = ""
 		path.modulate = Color.RED
+
+func validate_type(object: Object) -> bool:
+	if filter_type.is_empty():
+		return true
+	
+	if object.get_class() == filter_type:
+		return true
+	
+	var scr: Script = object.get_script()
+	if scr and scr.get_global_name() == filter_type:
+		return true
+	
+	return false
 
 func can_drop_node(pos: Vector2, data: Variant) -> bool:
 	var root := EditorInterface.get_edited_scene_root()
@@ -77,6 +93,9 @@ func can_drop_node(pos: Vector2, data: Variant) -> bool:
 	
 	var node: Node = get_tree().root.get_node(paths[0])
 	if not root.is_ancestor_of(node):
+		return false
+	
+	if not validate_type(node):
 		return false
 	
 	return true
