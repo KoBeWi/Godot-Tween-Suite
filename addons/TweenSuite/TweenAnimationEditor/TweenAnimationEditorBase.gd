@@ -76,7 +76,7 @@ func create_revert(from: TweenAnimation, animation_root: Node) -> TweenAnimation
 	
 	for step: Array in from.steps:
 		new_steps.append(step.filter(func(tweener) -> bool:
-			return tweener is TweenAnimation.PropertyTweenerAnimator or tweener is TweenAnimation.IntervalTweenerAnimator))
+			return tweener is TweenAnimation.PropertyTweenerAnimator or tweener is TweenAnimation.IntervalTweenerAnimator or tweener is TweenAnimation.SubtweenTweenerAnimator))
 		
 		for tweener in new_steps.back():
 			if tweener is TweenAnimation.PropertyTweenerAnimator:

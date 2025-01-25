@@ -1,6 +1,8 @@
 @tool
 extends Control
 
+@export var filter_type: StringName
+
 @onready var icon: TextureRect = $Icon
 @onready var path: LineEdit = $Path
 
@@ -84,7 +86,10 @@ func drop_node(pos: Vector2, data: Variant):
 	text = base_node.get_path_to(node)
 
 func pick_node() -> void:
-	EditorInterface.popup_node_selector(node_picked, [], object as Node)
+	if filter_type.is_empty():
+		EditorInterface.popup_node_selector(node_picked, [], object as Node)
+	else:
+		EditorInterface.popup_node_selector(node_picked, [filter_type], object as Node)
 
 func node_picked(path: NodePath):
 	var node := get_tree().edited_scene_root.get_node_or_null(path)

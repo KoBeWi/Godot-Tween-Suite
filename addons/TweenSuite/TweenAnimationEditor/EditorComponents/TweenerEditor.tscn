@@ -11,7 +11,7 @@
 
 [node name="TweenerEditor" type="PanelContainer"]
 custom_minimum_size = Vector2(300, 0)
-offset_right = 262.0
+offset_right = 673.0
 offset_bottom = 378.0
 size_flags_vertical = 0
 theme_override_styles/panel = ExtResource("1_oiwl2")
@@ -154,7 +154,6 @@ columns = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/IntervalTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Time"
 
 [node name="Time" type="SpinBox" parent="VBoxContainer/IntervalTweener"]
@@ -174,7 +173,6 @@ columns = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/CallbackTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Object"
 
 [node name="Object" parent="VBoxContainer/CallbackTweener" instance=ExtResource("4_ccge7")]
@@ -182,7 +180,6 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer/CallbackTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Method"
 
 [node name="Method" parent="VBoxContainer/CallbackTweener" node_paths=PackedStringArray("object_edit") instance=ExtResource("8_ja1xn")]
@@ -197,7 +194,6 @@ text = "Binds"
 
 [node name="Label4" type="Label" parent="VBoxContainer/CallbackTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Delay"
 
 [node name="Delay" type="SpinBox" parent="VBoxContainer/CallbackTweener"]
@@ -216,7 +212,6 @@ columns = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Object"
 
 [node name="Object" parent="VBoxContainer/MethodTweener" instance=ExtResource("4_ccge7")]
@@ -224,7 +219,6 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Method"
 
 [node name="Method" parent="VBoxContainer/MethodTweener" node_paths=PackedStringArray("object_edit") instance=ExtResource("8_ja1xn")]
@@ -233,7 +227,6 @@ object_edit = NodePath("../Object")
 
 [node name="Label3" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "From"
 
 [node name="From" type="LineEdit" parent="VBoxContainer/MethodTweener"]
@@ -243,7 +236,6 @@ script = ExtResource("3_iulab")
 
 [node name="Label4" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "To"
 
 [node name="To" type="LineEdit" parent="VBoxContainer/MethodTweener"]
@@ -253,7 +245,6 @@ script = ExtResource("3_iulab")
 
 [node name="Label5" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Duration"
 
 [node name="Duration" type="SpinBox" parent="VBoxContainer/MethodTweener"]
@@ -267,7 +258,6 @@ custom_arrow_step = 0.1
 
 [node name="Label6" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Ease"
 
 [node name="Ease" type="OptionButton" parent="VBoxContainer/MethodTweener"]
@@ -275,7 +265,6 @@ layout_mode = 2
 
 [node name="Label7" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Transition"
 
 [node name="Transition" type="OptionButton" parent="VBoxContainer/MethodTweener"]
@@ -283,10 +272,35 @@ layout_mode = 2
 
 [node name="Label8" type="Label" parent="VBoxContainer/MethodTweener"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Delay"
 
 [node name="Delay" type="SpinBox" parent="VBoxContainer/MethodTweener"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1e+06
+step = 0.001
+suffix = "s"
+custom_arrow_step = 0.1
+
+[node name="SubtweenTweener" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SubtweenTweener"]
+layout_mode = 2
+text = "Sub-Tween"
+
+[node name="Object" parent="VBoxContainer/SubtweenTweener" instance=ExtResource("4_ccge7")]
+layout_mode = 2
+filter_type = &"TweenNode"
+
+[node name="Label4" type="Label" parent="VBoxContainer/SubtweenTweener"]
+layout_mode = 2
+text = "Delay"
+
+[node name="Delay" type="SpinBox" parent="VBoxContainer/SubtweenTweener"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1e+06

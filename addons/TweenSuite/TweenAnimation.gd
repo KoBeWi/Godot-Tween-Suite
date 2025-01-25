@@ -120,7 +120,7 @@ func _get_validated_index(property: String, extend: bool) -> Vector2i:
 	return ret
 
 class TweenerAnimator:
-	enum Type { PROPERTY, INTERVAL, CALLBACK, METHOD }
+	enum Type {PROPERTY, INTERVAL, CALLBACK, METHOD, SUBTWEEN}
 	
 	var type: Type
 	
@@ -151,19 +151,24 @@ class TweenerAnimator:
 		else:
 			return object_candidates[0]
 	
-	static func create_from_dictionary(data: Dictionary) -> TweenerAnimator:
-		var tweener: TweenerAnimator
-		
-		match data["type"]:
+	static func create(type: TweenerAnimator.Type) -> TweenerAnimator:
+		match type:
 			PropertyTweenerAnimator.Type.PROPERTY:
-				tweener = PropertyTweenerAnimator.new()
+				return PropertyTweenerAnimator.new()
 			PropertyTweenerAnimator.Type.INTERVAL:
-				tweener = IntervalTweenerAnimator.new()
+				return IntervalTweenerAnimator.new()
 			PropertyTweenerAnimator.Type.CALLBACK:
-				tweener = CallbackTweenerAnimator.new()
+				return CallbackTweenerAnimator.new()
 			PropertyTweenerAnimator.Type.METHOD:
-				tweener = MethodTweenerAnimator.new()
+				return MethodTweenerAnimator.new()
+			PropertyTweenerAnimator.Type.SUBTWEEN:
+				return SubtweenTweenerAnimator.new()
 		
+		push_error("Unrecognized TweenAnimator type: %d." % type)
+		return null
+	
+	static func create_from_dictionary(data: Dictionary) -> TweenerAnimator:
+		var tweener := create(data["type"])
 		tweener.apply_dictionary(data)
 		return tweener
 	
@@ -267,3 +272,18 @@ class MethodTweenerAnimator extends TweenerAnimator:
 			tweener.set_ease(easing)
 		if transition > -1:
 			tweener.set_trans(transition)
+
+class SubtweenTweenerAnimator extends TweenerAnimator:
+	var subtween: NodePath
+	var delay: float
+	
+	func _init() -> void:
+		type = Type.SUBTWEEN
+	
+	func get_name() -> String:
+		return "Subtween Tweener"
+	
+	func apply_to_tween(tween: Tween, root: Node, animation: TweenAnimation):
+		var sub_tween: TweenNode = TweenerAnimator.get_target_object(root, subtween)
+		sub_tween.make_tween()
+		tween.tween_subtween(sub_tween.get_tween()).set_delay(delay)

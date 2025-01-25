@@ -1,8 +1,6 @@
 @tool
 extends Control
 
-enum NewOption { PROPERTY, INTERVAL, CALLBACK, METHOD }
-
 @onready var step_container: BoxContainer = %StepContainer
 @onready var timer: Timer = $Timer
 
@@ -39,18 +37,7 @@ func update_step_headers():
 		step.update_header()
 
 func on_new_tweener(id: int, step: Control):
-	var tweener: TweenAnimation.TweenerAnimator
-	
-	match id:
-		NewOption.PROPERTY:
-			tweener = TweenAnimation.PropertyTweenerAnimator.new()
-		NewOption.INTERVAL:
-			tweener = TweenAnimation.IntervalTweenerAnimator.new()
-		NewOption.CALLBACK:
-			tweener = TweenAnimation.CallbackTweenerAnimator.new()
-		NewOption.METHOD:
-			tweener = TweenAnimation.MethodTweenerAnimator.new()
-	
+	var tweener := TweenAnimation.TweenerAnimator.create(id)
 	add_tweener(step, tweener)
 	push_data_delayed()
 	
@@ -73,7 +60,6 @@ func push_data():
 		return
 	
 	var steps: Array
-	
 	for step in step_container.get_children():
 		var step_data: Array
 		var tweeners: Node = step.tweeners

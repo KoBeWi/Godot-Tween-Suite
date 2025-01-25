@@ -51,6 +51,8 @@ func set_tweener(tw: TweenAnimation.TweenerAnimator):
 		%CallbackTweener.show()
 	elif tweener is TweenAnimation.MethodTweenerAnimator:
 		%MethodTweener.show()
+	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
+		%SubtweenTweener.show()
 
 func get_data() -> TweenAnimation.TweenerAnimator:
 	if tweener is TweenAnimation.PropertyTweenerAnimator:
@@ -79,6 +81,9 @@ func get_data() -> TweenAnimation.TweenerAnimator:
 		tweener.easing = get_data_control("Method", ^"Ease").get_selected_id()
 		tweener.transition = get_data_control("Method", ^"Transition").get_selected_id()
 		tweener.delay = get_data_control("Method", ^"Delay").value
+	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
+		tweener.subtween = get_data_control("Subtween", ^"Object").text
+		tweener.delay = get_data_control("Subtween", ^"Delay").value
 	
 	return tweener
 
@@ -109,6 +114,9 @@ func apply_tweener():
 		set_selected_id(get_data_control("Method", ^"Ease"), tweener.easing)
 		set_selected_id(get_data_control("Method", ^"Transition"), tweener.transition)
 		get_data_control("Method", ^"Delay").value = tweener.delay
+	elif tweener is TweenAnimation.SubtweenTweenerAnimator:
+		get_data_control("Subtween", ^"Object").text = tweener.subtween
+		get_data_control("Subtween", ^"Delay").value = tweener.delay
 
 func get_data_control(tw: String, control: NodePath):
 	return get_node("%%%sTweener" % tw).get_node(control)
@@ -138,3 +146,4 @@ func set_root(root: Node):
 	get_data_control("Property", ^"Object").base_node = root
 	get_data_control("Callback", ^"Object").base_node = root
 	get_data_control("Method", ^"Object").base_node = root
+	get_data_control("Subtween", ^"Object").base_node = root
