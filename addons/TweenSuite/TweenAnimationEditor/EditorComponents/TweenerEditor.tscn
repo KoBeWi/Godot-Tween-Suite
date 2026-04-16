@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://blplsxu77noo5"]
 
-[ext_resource type="StyleBox" uid="uid://d1xmdsfvcu5yl" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/Panel.tres" id="1_oiwl2"]
 [ext_resource type="Script" uid="uid://qfrmorfj658w" path="res://addons/TweenSuite/TweenAnimationEditor/EditorComponents/TweenerEditor.gd" id="1_vmb5y"]
 [ext_resource type="Script" uid="uid://c4tys8q3qunhe" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/FormatLabel.gd" id="2_20eyb"]
 [ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_kbpp4"]
@@ -15,7 +14,6 @@ custom_minimum_size = Vector2(300, 0)
 offset_right = 673.0
 offset_bottom = 378.0
 size_flags_vertical = 0
-theme_override_styles/panel = ExtResource("1_oiwl2")
 script = ExtResource("1_vmb5y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1223696264]
@@ -343,6 +341,9 @@ step = 0.001
 value = -1.0
 suffix = "s"
 custom_arrow_step = 0.1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1901640811]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]
 [connection signal="toggled" from="VBoxContainer/PropertyTweener/from_current" to="." method="from_current_toggled"]

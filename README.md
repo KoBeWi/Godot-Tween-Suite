@@ -238,7 +238,7 @@ Equivalent of `tween.tween_method(object.method, from, to, duration)`.
 
 Equivalent of `tween.tween_subtween(subtween)`, except uses TweenNode as target.
 
-<!--- TODO ![](Media/SubtweenTweener.png) -->
+![](Media/SubtweenTweener.png)
 
 - **Sub-Tween:** The target TweenNode.
 - **Delay:** Time before this interpolation starts within the step. Equivalent of `tweener.set_delay()`.
@@ -247,7 +247,7 @@ Equivalent of `tween.tween_subtween(subtween)`, except uses TweenNode as target.
 
 Equivalent of `tween.tween_await(signal)`.
 
-<!--- TODO ![](Media/AwaitTweener.png) -->
+![](Media/AwaitTweener.png)
 
 - **Object:** The target object.
 - **Signal:** The signal in the target object to be awaited (e.g. `pressed`).

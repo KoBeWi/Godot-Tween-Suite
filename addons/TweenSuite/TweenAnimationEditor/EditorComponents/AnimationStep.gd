@@ -14,6 +14,8 @@ func _ready() -> void:
 	
 	for style: StringName in [&"normal", &"pressed", &"hover", &"disabled", &"focus"]:
 		add_tweener_button.add_theme_stylebox_override(style, get_theme_stylebox(style, &"OptionButton"))
+	
+	add_theme_stylebox_override(&"panel", get_theme_stylebox(&"panel", &"TreeSecondary"))
 
 func connect_signals(editor: Control):
 	add_tweener_button.get_popup().id_pressed.connect(editor.on_new_tweener.bind(self))
