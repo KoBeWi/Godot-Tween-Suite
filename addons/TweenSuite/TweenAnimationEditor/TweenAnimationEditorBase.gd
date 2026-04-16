@@ -1,7 +1,7 @@
 @tool
-extends Control
+extends EditorDock
 
-@onready var animation_view: ScrollContainer = $AnimationView
+@onready var animation_view: ScrollContainer = %AnimationView
 @onready var root_path_edit: HBoxContainer = %RootPathEdit
 @onready var play_button: Button = %Play
 @onready var stop_button: Button = %Stop
