@@ -13,6 +13,7 @@ var tweener_edits: Array[Node]:
 				%CallbackTweener,
 				%MethodTweener,
 				%SubtweenTweener,
+				%AwaitTweener,
 			]
 		return tweener_edits
 
@@ -109,3 +110,4 @@ func set_root(root: Node):
 	get_data_control(Type.CALLBACK, "target").base_node = root
 	get_data_control(Type.METHOD, "target").base_node = root
 	get_data_control(Type.SUBTWEEN, "subtween").base_node = root
+	get_data_control(Type.AWAIT, "target").base_node = root

@@ -120,7 +120,7 @@ func _get_validated_index(property: String, extend: bool) -> Vector2i:
 	return ret
 
 class TweenerAnimator:
-	enum Type{ PROPERTY, INTERVAL, CALLBACK, METHOD, SUBTWEEN }
+	enum Type{ PROPERTY, INTERVAL, CALLBACK, METHOD, SUBTWEEN, AWAIT }
 	
 	var type: Type
 	
@@ -168,6 +168,8 @@ class TweenerAnimator:
 				return MethodTweenerAnimator.new()
 			PropertyTweenerAnimator.Type.SUBTWEEN:
 				return SubtweenTweenerAnimator.new()
+			PropertyTweenerAnimator.Type.AWAIT:
+				return AwaitTweenerAnimator.new()
 		
 		push_error("Unrecognized TweenAnimator type: %d." % type)
 		return null
@@ -292,3 +294,17 @@ class SubtweenTweenerAnimator extends TweenerAnimator:
 		var sub_tween: TweenNode = TweenerAnimator.get_target_object(root, subtween)
 		sub_tween.make_tween()
 		tween.tween_subtween(sub_tween.get_tween()).set_delay(delay)
+
+class AwaitTweenerAnimator extends TweenerAnimator:
+	var target: NodePath
+	var signal_name: StringName
+	var timeout: float
+	
+	func _init() -> void:
+		type = Type.AWAIT
+	
+	func get_name() -> String:
+		return "Await Tweener"
+	
+	func apply_to_tween(tween: Tween, root: Node, animation: TweenAnimation):
+		tween.tween_await(Signal(TweenerAnimator.get_target_object(root, target), signal_name)).set_timeout(timeout)

@@ -234,6 +234,25 @@ Equivalent of `tween.tween_method(object.method, from, to, duration)`.
 - **Transition:** The transition type used for interpolation. Equivalent of `tweener.set_trans()`.
 - **Delay:** Time before this interpolation starts within the step. Equivalent of `tweener.set_delay()`.
 
+#### SubtweenTweener
+
+Equivalent of `tween.tween_subtween(subtween)`, except uses TweenNode as target.
+
+<!--- TODO ![](Media/SubtweenTweener.png) -->
+
+- **Sub-Tween:** The target TweenNode.
+- **Delay:** Time before this interpolation starts within the step. Equivalent of `tweener.set_delay()`.
+
+#### AwaitTweener
+
+Equivalent of `tween.tween_await(signal)`.
+
+<!--- TODO ![](Media/AwaitTweener.png) -->
+
+- **Object:** The target object.
+- **Signal:** The signal in the target object to be awaited (e.g. `pressed`).
+- **Timeout:** The maximum time the tweener can wait for signal. Equivalent of `tweener.set_timeout()`.
+
 ___
 You can find all my addons on my [profile page](https://github.com/KoBeWi).
 
