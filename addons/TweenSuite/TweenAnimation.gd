@@ -120,7 +120,7 @@ func _get_validated_index(property: String, extend: bool) -> Vector2i:
 	return ret
 
 class TweenerAnimator:
-	enum Type {PROPERTY, INTERVAL, CALLBACK, METHOD, SUBTWEEN}
+	enum Type{ PROPERTY, INTERVAL, CALLBACK, METHOD, SUBTWEEN }
 	
 	var type: Type
 	
@@ -131,7 +131,7 @@ class TweenerAnimator:
 		var ret: Array[String]
 		ret.assign(get_property_list().filter(func(property: Dictionary) -> bool:
 			return property["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE).map(func(property: Dictionary) -> String:
-				return property["name"]))
+			return property["name"]))
 		return ret
 	
 	func as_dictionary() -> Dictionary:

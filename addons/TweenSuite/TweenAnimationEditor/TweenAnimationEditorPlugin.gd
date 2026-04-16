@@ -16,11 +16,15 @@ func _exit_tree() -> void:
 func _handles(object: Object) -> bool:
 	if object is TweenNode:
 		editor.set_node(object)
+		return object.animation != null
 	
 	return object is TweenAnimation
 
 func _edit(object: Object) -> void:
-	editor.edit(object)
+	if object is TweenNode:
+		editor.edit(object.animation)
+	else:
+		editor.edit(object)
 
 func _make_visible(visible: bool) -> void:
 	if visible:
@@ -28,5 +32,5 @@ func _make_visible(visible: bool) -> void:
 	else:
 		editor.close()
 
-func _save_external_data() -> void:
+func _apply_changes() -> void:
 	editor.save_data()

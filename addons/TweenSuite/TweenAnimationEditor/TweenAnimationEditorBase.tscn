@@ -58,5 +58,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("4_aoydb")
 
-[connection signal="pressed" from="Tweens/VBoxContainer/Play" to="Tweens" method="play_animation"]
-[connection signal="pressed" from="Tweens/VBoxContainer/Stop" to="Tweens" method="stop_animation"]
+[connection signal="pressed" from="Tweens/VBoxContainer/Play" to="." method="play_animation"]
+[connection signal="pressed" from="Tweens/VBoxContainer/Stop" to="." method="stop_animation"]
