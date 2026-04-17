@@ -35,7 +35,7 @@ const _EARLY_ERROR = "Method called too early, Tween not initialized. Use make_t
 @export var speed_scale: float = 1.0
 
 ## Default transition for the [Tween]'s tweeners. See [enum Tween.TransitionType].
-@export_enum("Linear", "Sine", "Quint", "Quart", "Quad", "Expo", "Elastic", "Cubic", "Circ", "Bounce", "Back", "Sprint") var default_transition: int
+@export_enum("Linear", "Sine", "Quint", "Quart", "Quad", "Expo", "Elastic", "Cubic", "Circ", "Bounce", "Back", "Spring") var default_transition: int
 
 ## Default easing for the [Tween]'s tweeners. See [enum Tween.EaseType].
 @export_enum("In", "Out", "In Out", "Out In") var default_easing: int = Tween.EASE_IN_OUT

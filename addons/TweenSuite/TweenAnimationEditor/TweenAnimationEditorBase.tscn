@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://do14sdvibpe0k"]
 
+[ext_resource type="Texture2D" uid="uid://bcfuug33fy4te" path="res://addons/TweenSuite/Icons/TweensDock.svg" id="1_c5fk2"]
 [ext_resource type="Script" uid="uid://bqrk8t65vtnb6" path="res://addons/TweenSuite/TweenAnimationEditor/TweenAnimationEditorBase.gd" id="1_c8gub"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="2_es7qw"]
 [ext_resource type="Script" uid="uid://dfl3iso3r7x0m" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/EditorButton.gd" id="2_ls5q1"]
@@ -11,7 +12,7 @@ accessibility_name = "Tweens"
 accessibility_region = true
 global = false
 transient = true
-icon_name = &"Node"
+dock_icon = ExtResource("1_c5fk2")
 default_slot = 8
 available_layouts = 6
 script = ExtResource("1_c8gub")

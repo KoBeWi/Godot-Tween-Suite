@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://0qwp7kkklqhy" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ExpressionEdit.gd" id="3_iulab"]
 [ext_resource type="PackedScene" uid="uid://c5al8etaem6a6" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/ObjectEdit.tscn" id="4_ccge7"]
 [ext_resource type="PackedScene" uid="uid://dkuqneh7wwwbj" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/PropertyEdit.tscn" id="5_dogfc"]
+[ext_resource type="Script" uid="uid://dqoir8pth2ow4" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/OptionHelper.gd" id="7_anet3"]
 [ext_resource type="PackedScene" uid="uid://d08ri5ior6sua" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/MethodEdit.tscn" id="8_ja1xn"]
 [ext_resource type="PackedScene" uid="uid://bll2vfhufokvu" path="res://addons/TweenSuite/TweenAnimationEditor/GUIComponents/SignalEdit.tscn" id="9_anet3"]
 
@@ -107,6 +108,7 @@ text = "Ease"
 [node name="easing" type="OptionButton" parent="VBoxContainer/PropertyTweener" unique_id=352426134]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_anet3")
 
 [node name="Label9" type="Label" parent="VBoxContainer/PropertyTweener" unique_id=2122807383]
 layout_mode = 2
@@ -115,6 +117,7 @@ text = "Transition"
 [node name="transition" type="OptionButton" parent="VBoxContainer/PropertyTweener" unique_id=1399380948]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_anet3")
 
 [node name="Label6" type="Label" parent="VBoxContainer/PropertyTweener" unique_id=67797288]
 layout_mode = 2
@@ -261,6 +264,7 @@ text = "Ease"
 
 [node name="easing" type="OptionButton" parent="VBoxContainer/MethodTweener" unique_id=1381890095]
 layout_mode = 2
+script = ExtResource("7_anet3")
 
 [node name="Label7" type="Label" parent="VBoxContainer/MethodTweener" unique_id=1432765606]
 layout_mode = 2
@@ -268,6 +272,7 @@ text = "Transition"
 
 [node name="transition" type="OptionButton" parent="VBoxContainer/MethodTweener" unique_id=1775961360]
 layout_mode = 2
+script = ExtResource("7_anet3")
 
 [node name="Label8" type="Label" parent="VBoxContainer/MethodTweener" unique_id=1829488601]
 layout_mode = 2

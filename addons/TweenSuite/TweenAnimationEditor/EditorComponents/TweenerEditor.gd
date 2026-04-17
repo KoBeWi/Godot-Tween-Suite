@@ -59,7 +59,7 @@ func set_tweener(tw: TweenAnimation.TweenerAnimator):
 	tweener_edits[tweener.type].show()
 
 func get_value_property(control: Control) -> StringName:
-	if control is Button:
+	if control is Button and not control is OptionButton:
 		return &"button_pressed"
 	return &"value"
 

@@ -1,3 +1,4 @@
+@tool
 extends OptionButton
 
 var value: int:
