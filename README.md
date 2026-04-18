@@ -2,7 +2,7 @@
 
 Tween Suite is an extension for Godot's Tween class. It adds 3 things: TweenNode, TweenAnimation, editor for TweenAnimation.
 
-## ![](addons/TweenSuite//Icons/TweenNode.svg) TweenNode
+## ![](addons/TweenSuite/Icons/TweenNode.svg) TweenNode
 
 A wrapper for Tween. You can put it on the scene and edit some animation parameters in the inspector.
 
@@ -49,7 +49,7 @@ func jump():
 
 It's useful if you want reusable Tweens without using the node itself.
 
-## ![](addons/TweenSuite//Icons/TweenAnimation.svg) TweenAnimation
+## ![](addons/TweenSuite/Icons/TweenAnimation.svg) TweenAnimation
 
 TweenAnimation is a new Resource introduced by this addon. You can use it both with TweenNode and a regular Tween. It defines Tweeners grouped in animation steps that can be applied to the Tween.
 
@@ -97,7 +97,7 @@ You can then export and link the TweenAnimationWrapper as you would any resource
 
 Then you can just call `Setup()` to create a Tween and setup it with the linked TweenAnimation.
 The method takes the root node you want the Tween to apply to and a bool to bind the Tween to your node.
-```C#
+```csharp
 public partial class YourNode : Node
 {
    [Export] public TweenAnimationWrapper YourAnimation { get; set; }
@@ -107,7 +107,7 @@ public partial class YourNode : Node
        if (YourAnimation != null)
        {
            Tween myTween = YourAnimation.Setup(this, true);
-           // Do whatever you want with the tween as usual
+           / Do whatever you want with the tween as usual
        }
    }
 }
@@ -254,6 +254,6 @@ Equivalent of `tween.tween_await(signal)`.
 - **Timeout:** The maximum time the tweener can wait for signal. Equivalent of `tweener.set_timeout()`.
 
 ___
-You can find all my addons on my [profile page](https://github.com/KoBeWi).
+You can find all my addons on my [profile page](https:/github.com/KoBeWi).
 
-<a href='https://ko-fi.com/W7W7AD4W4' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href='https:/ko-fi.com/W7W7AD4W4' target='_blank'><img height='36' style='border:0px;height:36px;' src='https:/cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
