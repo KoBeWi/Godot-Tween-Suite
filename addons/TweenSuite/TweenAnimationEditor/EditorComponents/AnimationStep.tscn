@@ -78,4 +78,4 @@ popup/item_4/id = 4
 popup/item_5/text = "Await"
 popup/item_5/id = 5
 
-[connection signal="pressed" from="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer/Button" to="AnimationStep" method="delete_me"]
+[connection signal="pressed" from="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]
