@@ -106,6 +106,7 @@ func apply_revert():
 
 func update_root(new_text: String = "") -> void:
 	root_path_edit.base_node = EditorInterface.get_edited_scene_root()
+	root_path_edit._update_object()
 	
 	if new_text.is_empty():
 		new_text = root_path_edit.value
