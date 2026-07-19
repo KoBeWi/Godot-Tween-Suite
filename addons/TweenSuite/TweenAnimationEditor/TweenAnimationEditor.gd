@@ -52,6 +52,18 @@ func add_tweener(step: Control, tweener: TweenAnimation.TweenerAnimator) -> Cont
 	tweener_editor.changed.connect(push_data_delayed)
 	return tweener_editor
 
+func move_step(move: int, step: Control):
+	var step_pos := step.position.x
+	step_container.move_child(step, step.get_index() + move)
+	update_step_headers()
+	push_data_delayed()
+	
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	var mouse := get_global_mouse_position()
+	Input.warp_mouse(Vector2(mouse.x + (step.position.x - step_pos), mouse.y))
+
 func push_data_delayed():
 	timer.start()
 

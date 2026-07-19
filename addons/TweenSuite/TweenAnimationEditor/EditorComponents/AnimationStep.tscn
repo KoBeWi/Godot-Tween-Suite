@@ -25,6 +25,18 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="AnimationStep/VBoxContainer/MarginContainer" unique_id=314168944]
 layout_mode = 2
 
+[node name="MoveLeft" type="Button" parent="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer" unique_id=504442701]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_dqn4s")
+icon_name = &"MoveLeft"
+
+[node name="MoveRight" type="Button" parent="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1217923759]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_dqn4s")
+icon_name = &"MoveRight"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer" unique_id=395608061]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -78,4 +90,6 @@ popup/item_4/id = 4
 popup/item_5/text = "Await"
 popup/item_5/id = 5
 
+[connection signal="pressed" from="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer/MoveLeft" to="." method="_move_left"]
+[connection signal="pressed" from="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer/MoveRight" to="." method="_move_right"]
 [connection signal="pressed" from="AnimationStep/VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="delete_me"]
