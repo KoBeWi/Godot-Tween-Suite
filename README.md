@@ -30,7 +30,7 @@ This function is automatically called once, after the node is ready. The animati
 
 #### Animation resource
 
-By assigning a TweenAnimation, the TweenNode will use it for the animation and won't call `initialize_animation()`. Similar to AnimationPlayer, you need to setup `animation_root` property to define the base node for your animation. See [TweenAnimation](#tweenanimation) for more info.
+By assigning a TweenAnimation, the TweenNode will use it for the animation and won't call `initialize_animation()`. Similar to AnimationPlayer, you need to setup `animation_root` property to define the base node for your animation. See [TweenAnimation](#-tweenanimation) for more info.
 
 #### Creating reusable Tweens
 
